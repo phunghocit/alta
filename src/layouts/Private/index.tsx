@@ -57,7 +57,7 @@ const PrivateLayout = ({ children, title }:Props) => {
         <MenuItem to="/Dashboard">
           <AppstoreOutlined /> Dashboard
         </MenuItem>
-        <MenuItem to="/DeviceManagement">
+        <MenuItem to="/DevicePage/Table">
           <DesktopOutlined /> Thiết bị
         </MenuItem>
         <MenuItem to="/ServiceManagement">

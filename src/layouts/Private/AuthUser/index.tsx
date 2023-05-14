@@ -1,14 +1,15 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Role, UserInfo, Username } from './styles';
 import LoginFormUser from '../../../components/LoginFormUser';
 const AuthUser = () => {
     const navigate = useNavigate();
+    const id:string = "qu1hRepnC3eQh9y06UOW";
 
     const info = () => {
         // localStorage.removeItem('token')
-        navigate(`/`)
+        navigate(`/AccountInfo/${id}`)
     }
 
 
@@ -25,7 +26,9 @@ const AuthUser = () => {
         }
       ];
 
-
+      // const location = useLocation()
+      // console.log(location);
+      
     return(
         <Dropdown
         menu={{

@@ -1,11 +1,12 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
-const index = () => {
+const DeviceDashboard = () => {
   return (
     <div>
-      page devices
+      <Outlet/>
     </div>
   )
 }
 
-export default index
+export default DeviceDashboard

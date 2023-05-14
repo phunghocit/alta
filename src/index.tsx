@@ -14,13 +14,19 @@ import Services from './pages/Services';
 import AccountManagement from './pages/AccountManagement';
 import Report from './pages/Report';
 import NumberLevel from './pages/NumberLevel';
-import AddDevice from './pages/AddDevice';
+// import AddDevice from './pages/AddDevice';
 import AddUser from './pages/AddUser';
 import UserLogs from './pages/UserLogs';
 import RoleManagement from './pages/RoleManagement';
 import AddService from './pages/AddService';
 import ServiceManagement from './pages/ServiceManagement';
 import DeviceManagement from './pages/DeviceManagement';
+import AccountInfo from './pages/AccountInfo';
+import TableDevices from './components/DeviceDashboard/TableDevice';
+import DevicePage from './pages/DevicePage';
+import ModalFormDevice from './components/DeviceDashboard/ModalFormDevice';
+import DeviceDashboard from './components/DeviceDashboard';
+import UpdateDevice from './components/DeviceDashboard/UpdateDevice';
 
 
 const router = createBrowserRouter([
@@ -58,11 +64,15 @@ const router = createBrowserRouter([
     path: "/AccountManagement",
     element: <PrivateRoute page={<AccountManagement/>}/>
   },
-  //thêm thiết bị
   {
-    path: "/AddDevice",
-    element: <PrivateRoute page={<AddDevice/>}/>
+    path: "/AccountInfo/:userid",
+    element: <PrivateRoute page={<AccountInfo/>}/>
   },
+  //thêm thiết bị
+  // {
+  //   path: "/AddDevice",
+  //   element: <PrivateRoute page={<AddDevice/>}/>
+  // },
     //Thêm tài khoản  
   {
     path: "/AddUser",
@@ -81,8 +91,23 @@ const router = createBrowserRouter([
     element: <PrivateRoute page={<ServiceManagement/>}/>
   },
   {
-    path: "/DeviceManagement",
-    element: <PrivateRoute page={<DeviceManagement/>}/>
+    path: "/DevicePage",
+    element: <PrivateRoute page={<DevicePage/>}/>,
+    children: [
+      {
+        path: "AddDevice",
+        element: <PrivateRoute page={<ModalFormDevice/>}/>
+      },
+
+      {
+        path: "Table",
+        element: <PrivateRoute page={<TableDevices/>}/>
+      },
+      {
+        path: "Update",
+        element: <PrivateRoute page={<UpdateDevice/>}/>
+      }
+    ]
   }
   
 ])

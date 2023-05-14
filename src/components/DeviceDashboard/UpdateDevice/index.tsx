@@ -10,18 +10,34 @@ import {
   SubmitButton,
   Title,
 } from "./styles";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { Button,Select,Row,Col } from 'antd'
 import { db } from "../../../firebase/firebase";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ModalFormDevice = () => {
+
+interface DeviceInfo {
+    id: string,
+    namedevice: string,
+    ip: string,
+    active_status: string,
+    type: string,
+    connection_status: string,
+    username: string,
+    password: string,
+    services_used: string,
+  }
+  interface Props {
+    iddevice: string,
+  }
+const UpdateDevice = () => {
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState([]);
   const [options,setOptions] = useState();
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | any>();
 
   const fetchDataServices = async () => {
     setLoading(true)
@@ -41,9 +57,13 @@ const ModalFormDevice = () => {
       });
       setOptions(newServices)
       setLoading(false)
+
+    //   const docRef2 = doc(db, "divices",`${id}`);
+    //   const docSnap2 = await getDoc(docRef2);
+    //   setDeviceInfo(docSnap.data())
 }
 
-  const SubmitDevice = async () => {
+  const HandleUpdate = async () => {
     const data = await form.validateFields();
     // console.log(data);
     await addDoc(collection(db, "devices"), {
@@ -180,11 +200,11 @@ const ModalFormDevice = () => {
       </Row>
       <Row style={{ display: "flex", justifyContent: "center" }}>
         <CancelButton onClick={HandleCancel}>Huỷ bỏ</CancelButton>
-        <SubmitButton onClick={SubmitDevice}>Thêm thiết bị</SubmitButton>
+        <SubmitButton onClick={HandleUpdate}>Cập nhật</SubmitButton>
       </Row>
     </Form>
   );
 };
 
-export default ModalFormDevice;
+export default UpdateDevice;
 

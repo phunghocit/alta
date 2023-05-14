@@ -137,6 +137,10 @@ export const MenuItem = styled(NavLink)`
         #e1eec3
       ); */
     }
+
+    &.active{
+      background-color:#FF7506 !important;
+    }
 `
 export const MenuItemLogout = styled(NavLink)`
     backdrop-filter: blur(25px) saturate(200%);

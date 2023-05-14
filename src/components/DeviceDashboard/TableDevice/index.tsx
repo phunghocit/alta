@@ -16,7 +16,7 @@ const TableDevices =() => {
   
   const AddDevice = () => {
       // localStorage.removeItem('token')
-      navigate(`/AddDevice`)
+      navigate(`/DevicePage/AddDevice`)
       }
 
       
@@ -42,6 +42,11 @@ const TableDevices =() => {
       console.log(devices);
   },[setDevices])
   const onEdit = (id:any) => {
+    navigate(`/DevicePage/Update`)
+
+    
+  }
+  const onDetail = (id:any) => {
   
   }
 
@@ -94,7 +99,9 @@ const TableDevices =() => {
             render: (_:any,item:any) =>{
                 return(
                     <div>
-                        <ButtonAction >Cập nhật</ButtonAction>
+                        <ButtonAction  onClick={()=>{onDetail(item.id)}}>Chi tiết</ButtonAction>
+                        <ButtonAction  onClick={()=>{onEdit(item.id)}}>Cập nhật</ButtonAction>
+                        
                     </div>
                 )
             }
