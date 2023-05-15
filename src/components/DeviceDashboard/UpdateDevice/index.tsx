@@ -28,9 +28,7 @@ interface DeviceInfo {
     password: string,
     services_used: string,
   }
-  interface Props {
-    iddevice: string,
-  }
+  
 const UpdateDevice = () => {
   const [loading, setLoading] = useState(false)
   const [value, setValue] = useState([]);
@@ -57,10 +55,9 @@ const UpdateDevice = () => {
       });
       setOptions(newServices)
       setLoading(false)
-
-    //   const docRef2 = doc(db, "divices",`${id}`);
-    //   const docSnap2 = await getDoc(docRef2);
-    //   setDeviceInfo(docSnap.data())
+      const docRef2 = doc(db, "divices");
+      const docSnap2 = await getDoc(docRef2);
+      setDeviceInfo(docSnap2.data())
 }
 
   const HandleUpdate = async () => {

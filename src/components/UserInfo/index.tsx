@@ -23,6 +23,7 @@ interface UserInfo {
 }
 
 const UserInfo = () => {
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState(DEFAULT_USER);
   const [form] = Form.useForm();
   const { userid } = useParams();
@@ -32,9 +33,12 @@ const UserInfo = () => {
   // let idacc=;
 
   const fetchData = async () => {
+    setLoading(true)
     const docRef = doc(db, "users",`${localStorage.getItem('token')}`);
     const docSnap = await getDoc(docRef);
     setUserInfo(docSnap.data())
+    setLoading(false)
+
     // const docRef = query(
     //   collection(db, "users"),
     //   where("username", "==", localStorage.getItem("token"))

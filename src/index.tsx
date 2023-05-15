@@ -27,6 +27,7 @@ import DevicePage from './pages/DevicePage';
 import ModalFormDevice from './components/DeviceDashboard/ModalFormDevice';
 import DeviceDashboard from './components/DeviceDashboard';
 import UpdateDevice from './components/DeviceDashboard/UpdateDevice';
+import DetailDevice from './components/DeviceDashboard/DetailDevice';
 
 
 const router = createBrowserRouter([
@@ -65,7 +66,8 @@ const router = createBrowserRouter([
     element: <PrivateRoute page={<AccountManagement/>}/>
   },
   {
-    path: "/AccountInfo/:userid",
+    // path: "/AccountInfo/:userid",
+    path: "/AccountInfo",
     element: <PrivateRoute page={<AccountInfo/>}/>
   },
   //thêm thiết bị
@@ -98,7 +100,6 @@ const router = createBrowserRouter([
         path: "AddDevice",
         element: <PrivateRoute page={<ModalFormDevice/>}/>
       },
-
       {
         path: "Table",
         element: <PrivateRoute page={<TableDevices/>}/>
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: "Update",
         element: <PrivateRoute page={<UpdateDevice/>}/>
+      },
+      {
+        path: "Detail/:iddevices",
+        element: <PrivateRoute page={<DetailDevice/>}/>
       }
     ]
   }
