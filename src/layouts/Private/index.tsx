@@ -60,7 +60,7 @@ const PrivateLayout = ({ children, title }:Props) => {
         <MenuItem to="/DevicePage/Table">
           <DesktopOutlined /> Thiết bị
         </MenuItem>
-        <MenuItem to="/ServiceManagement">
+        <MenuItem to="/ServiceManagement/Table">
           <MessageOutlined /> Dịch vụ
         </MenuItem>
         <MenuItem to="/NumberLevel">

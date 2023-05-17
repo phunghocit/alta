@@ -13,7 +13,7 @@ const TableService = () => {
     
     const AddService = () => {
         // localStorage.removeItem('token')
-        navigate(`/AddService`)
+        navigate(`/ServiceManagement/AddService`)
         }
 
         

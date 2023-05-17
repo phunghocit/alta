@@ -1,5 +1,5 @@
 import { collection, doc, getDoc, getDocs } from '@firebase/firestore';
-import { Button, Descriptions } from 'antd'
+import { Button, Descriptions, Form } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { db } from '../../../firebase/firebase';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -43,11 +43,11 @@ const DetailDevice = () => {
     navigate(`/DevicePage/Update/${iddevices}`);
   };
   return (
-    <div>
+    <Form>
       {device && (
         <Descriptions 
         // loading={loading}
-        title="Custom Size"
+        title="Thông tin thiết bị"
         column={{ md: 2 }}
         extra={
           <Button
@@ -84,7 +84,7 @@ const DetailDevice = () => {
       </Descriptions>
       )}
       
-    </div>
+    </Form>
   );
 }
 

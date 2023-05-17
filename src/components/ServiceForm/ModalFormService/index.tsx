@@ -33,7 +33,7 @@ const ModalFormService = () => {
         status: data.status
       })  .then((docRef) => {console.log("Document written:", docRef.id)
       message.success('Thêm thành công!')
-      // navigate(`/ServiceManagement`)
+      navigate(`/ServiceManagement/Table`)
 
     })
       .catch((error) => {console.error("Error add doc: ", error);
@@ -41,7 +41,7 @@ const ModalFormService = () => {
 
   };
   const HandleCancel = () => {
-    navigate(`/ServiceManagement`)
+    navigate(`/ServiceManagement/Table`)
 
 }
   
@@ -50,9 +50,9 @@ const ModalFormService = () => {
   };
   return (
     //Họ và tên
-    <Form form={form} layout="vertical">
-      <Row>
-        <Col xs={{ span: 9, offset: 1 }} lg={{ span: 9, offset: 2 }}>
+    <Form form={form} layout="vertical" >
+      <Row gutter={[48, 16]}>
+        <Col span={12}>
           <Form.Item
             label="Mã dịch vụ"
             name="id"
@@ -68,7 +68,7 @@ const ModalFormService = () => {
             <Input placeholder="Nhập Tên dịch vụ" />
           </Form.Item>
         </Col>
-        <Col xs={{ span: 9, offset: 1 }} lg={{ span: 9, offset: 2 }}>
+        <Col span={12}>
           <Form.Item
             label="Mô tả"
             name="description"
@@ -90,26 +90,26 @@ const ModalFormService = () => {
           </Form.Item>
         </Col>
       </Row>
-      {/* <Row>
+      <Row  gutter={[48, 32]}>
         <Form.Item
           label="Quy tắc cấp số"
           name="id"
           rules={[{ required: true, message: "Vui lòng chọn!" }]}
         >
           <Row>
-            <Checkbox value="A">Tăng tự động từ:</Checkbox>
+            <Checkbox value="A">Tăng tự động từ: 0001 đến 9999</Checkbox> 
           </Row>
           <Row>
-            <Checkbox value="B">Prefix:</Checkbox>
+            <Checkbox value="B">Prefix: 0001</Checkbox>
           </Row>
           <Row>
-            <Checkbox value="C">Surfix:</Checkbox>
+            <Checkbox value="C">Surfix: 0001</Checkbox>
           </Row>
           <Row>
             <Checkbox value="D">Reset mỗi ngày</Checkbox>
           </Row>
         </Form.Item>
-      </Row> */}
+      </Row>
 
       <Row>
         <CancelButton onClick={HandleCancel}>Huỷ bỏ</CancelButton>

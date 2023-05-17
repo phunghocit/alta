@@ -1,4 +1,4 @@
-import TableRole from "../../components/RoleManagement/TableRole";
+import TableRole from "../../components/RoleDashboard/TableRole";
 import Layout from "../../layouts/Private"
 
 

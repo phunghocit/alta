@@ -1,4 +1,4 @@
-import TableService from "../../components/ServiceForm/TableService";
+import TableService from "../../components/ServiceForm";
 import Layout from "../../layouts/Private"
 
 

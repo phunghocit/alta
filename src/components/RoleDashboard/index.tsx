@@ -1,7 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const ServiceDashboard = () => {
+const RoleDashboard = () => {
+  
   return (
     <div>
       <Outlet/>
@@ -9,4 +10,4 @@ const ServiceDashboard = () => {
   )
 }
 
-export default ServiceDashboard
+export default RoleDashboard

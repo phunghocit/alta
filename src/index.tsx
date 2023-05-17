@@ -9,8 +9,8 @@ import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Device from './pages/Device';
-import Services from './pages/Services';
+// import Device from './pages/Device';
+// import Services from './pages/Services';
 import AccountManagement from './pages/AccountManagement';
 import Report from './pages/Report';
 import NumberLevel from './pages/NumberLevel';
@@ -18,16 +18,23 @@ import NumberLevel from './pages/NumberLevel';
 import AddUser from './pages/AddUser';
 import UserLogs from './pages/UserLogs';
 import RoleManagement from './pages/RoleManagement';
-import AddService from './pages/AddService';
+// import AddService from './pages/AddService';
 import ServiceManagement from './pages/ServiceManagement';
 // import DeviceManagement from './pages/DeviceManagement';
 import AccountInfo from './pages/AccountInfo';
 import TableDevices from './components/DeviceDashboard/TableDevices';
 import DevicePage from './pages/DevicePage';
 import ModalFormDevice from './components/DeviceDashboard/ModalFormDevice';
-import DeviceDashboard from './components/DeviceDashboard';
+// import DeviceDashboard from './components/DeviceDashboard';
 import UpdateDevice from './components/DeviceDashboard/UpdateDevice';
 import DetailDevice from './components/DeviceDashboard/DetailDevice';
+import ModalFormService from './components/ServiceForm/ModalFormService';
+import TableService from './components/ServiceForm/TableService';
+import UpdateService from './components/ServiceForm/UpdateService';
+import DetailService from './components/ServiceForm/DetailService';
+import ModalRole from './components/RoleDashboard/ModalRole';
+import TableRole from './components/RoleDashboard/TableRole';
+import UpdateRole from './components/RoleDashboard/UpdateRole';
 
 
 const router = createBrowserRouter([
@@ -39,14 +46,14 @@ const router = createBrowserRouter([
     path: "/Dashboard",
     element: <PrivateRoute page={<Dashboard/>}/>
   },
-  {
-    path: "/Device",
-    element: <PrivateRoute page={<Device/>}/>
-  },
-  {
-    path: "/Services",
-    element: <PrivateRoute page={<Services/>}/>
-  },
+  // {
+  //   path: "/Device",
+  //   element: <PrivateRoute page={<Device/>}/>
+  // },
+  // {
+  //   path: "/Services",
+  //   element: <PrivateRoute page={<Services/>}/>
+  // },
   {
     path: "/NumberLevel",
     element: <PrivateRoute page={<NumberLevel/>}/>
@@ -80,17 +87,49 @@ const router = createBrowserRouter([
     path: "/AddUser",
     element: <PrivateRoute page={<AddUser/>}/>
   }, 
-  {
-    path: "/AddService",
-    element: <PrivateRoute page={<AddService/>}/>
-  },
+  // {
+  //   path: "/AddService",
+  //   element: <PrivateRoute page={<AddService/>}/>
+  // },
   {
     path: "/RoleManagement",
-    element: <PrivateRoute page={<RoleManagement/>}/>
+    element: <PrivateRoute page={<RoleManagement/>}/>,
+    children: [
+      {
+        path: "AddRole",
+        element: <PrivateRoute page={<ModalRole/>}/>
+      },
+      {
+        path: "Table",
+        element: <PrivateRoute page={<TableRole/>}/>
+      },
+      {
+        path: "Update/:iddevices",
+        element: <PrivateRoute page={<UpdateRole/>}/>
+      }
+    ]
   },
   {
     path: "/ServiceManagement",
-    element: <PrivateRoute page={<ServiceManagement/>}/>
+    element: <PrivateRoute page={<ServiceManagement/>}/>,
+    children: [
+      {
+        path: "AddService",
+        element: <PrivateRoute page={<ModalFormService/>}/>
+      },
+      {
+        path: "Table",
+        element: <PrivateRoute page={<TableService/>}/>
+      },
+      {
+        path: "Update/:iddevices",
+        element: <PrivateRoute page={<UpdateService/>}/>
+      },
+      {
+        path: "Detail/:iddevices",
+        element: <PrivateRoute page={<DetailService/>}/>
+      }
+    ]
   },
   {
     path: "/DevicePage",

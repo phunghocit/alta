@@ -2,10 +2,8 @@ import React from 'react'
 
 const TableRole = () => {
   return (
-    <div>
-      Table role
-    </div>
-  )
+<div></div>
+  );
 }
 
 export default TableRole
