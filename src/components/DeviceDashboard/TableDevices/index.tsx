@@ -1,5 +1,5 @@
 import { UserOutlined, ExclamationCircleFilled } from "@ant-design/icons";
-import { Button, Table, Modal, Row, Col } from "antd";
+import { Button, Table, Modal, Row, Col, Spin } from "antd";
 import { TableCustom, ButtonAction, ButtonCreate } from "./styles";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ const TableDevices = () => {
   };
 
   const fetchData = async () => {
-    
+    setLoading(true);
     const docRef = collection(db, "devices"); //tra ve collection
     const docSnap = await getDocs(docRef);
     let newServices: any = [];
@@ -27,23 +27,22 @@ const TableDevices = () => {
       //lấy từng doc trong firebase
       newServices.push({...doc.data(), iddevices: doc.id}); //lấy hết data vào trong mảng tạm newUsers
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
+    //   console.log(doc.id, " => ", doc.data());
+    setLoading(false);
     });
     setDevices(newServices);
   };
 
   useEffect(() => {
-    setLoading(true);
     fetchData();
-    setLoading(false);
 
   }, []);
 
-//   useEffect(() => {
-//     console.log(devices);
-//   }, [setDevices]);
+  useEffect(() => {
+    console.log(devices);
+  }, [setDevices]);
   const onEdit = (iddevices: any) => {
-    navigate(`/DevicePage/Update`);
+    navigate(`/DevicePage/Update/${iddevices}`);
   };
   const onDetail = (iddevices: any) => {
     navigate(`/DevicePage/Detail/${iddevices}`);
@@ -115,6 +114,7 @@ const TableDevices = () => {
   ];
 
   return (
+    // <Spin tip="Loading">
     <Row wrap={false}>
       <Col flex="auto">
         <TableCustom
@@ -136,6 +136,7 @@ const TableDevices = () => {
         <ButtonCreate onClick={AddDevice}>Thêm thiết bị</ButtonCreate>
       </Col>
     </Row>
+    // </Spin>
   );
 };
 

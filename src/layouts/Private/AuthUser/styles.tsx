@@ -12,8 +12,9 @@ export const UserInfo = styled.div`
   /* border-sizing: border-box; */
 
   img{
-    width: 3rem;
-    border-radius: 50%;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50px;
   }  
 `
 

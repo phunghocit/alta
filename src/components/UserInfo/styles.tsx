@@ -9,7 +9,10 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
 `
-
+export const Img = styled.img`
+    height: 100%;
+    width: 100%;
+`
 export const Title = styled.h2`
     font-size: 3rem;
     margin-top:0;

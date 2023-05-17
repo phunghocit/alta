@@ -10,11 +10,11 @@ import {
   SubmitButton,
   Title,
 } from "./styles";
-import { addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { Button,Select,Row,Col } from 'antd'
 import { db } from "../../../firebase/firebase";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 interface DeviceInfo {
@@ -36,7 +36,60 @@ const UpdateDevice = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | any>();
+  let { iddevices } = useParams();
+  const [device,setDevice] = useState<any>();
 
+  const fetchDataDevice = async () => {
+    // setLoading(true)
+    const docRef = doc(db, "devices",`${iddevices}`);
+    const docSnap = await getDoc(docRef);
+    setDevice(docSnap.data())
+    // setLoading(false)
+    console.log(device);
+
+  };
+
+  const HandleUpdate = async () => {
+    const data = await form.validateFields();
+    // console.log(data);
+    await updateDoc(doc(db, "devices",`${iddevices}`), {
+      id: data.id,
+      namedevice: data.namedevice,
+      ip: data.ip,
+      active_status: data.active_status,
+      type: data.type,
+      connection_status: data.connection_status,
+      username: data.username,
+      password: data.password,
+      services_used: data.services_used,
+    })
+      .then(() => {
+        // console.log("Document written:", docRef.id);
+        message.success("Cập nhật thành công!");
+        navigate(`/DevicePage/Table`);
+      })
+      .catch((error) => {
+        message.error("Cập nhật thất bại!");
+    });
+  };
+
+
+
+    useEffect(()=>{
+        fetchDataDevice();
+        fetchDataServices();
+    },[])
+    useEffect(() => {
+        if(device){
+          form.setFieldsValue(device);
+    
+        }
+        
+      }, [device]);
+    const HandleCancel = () => {
+      navigate(`/DevicePage/Table`)
+  
+  }
   const fetchDataServices = async () => {
     setLoading(true)
     const docRef = collection(db, "services"); //tra ve collection 
@@ -52,47 +105,10 @@ const UpdateDevice = () => {
         );
         console.log(doc.id, " => ", doc.data().name);
 
-      });
+    });
       setOptions(newServices)
       setLoading(false)
-      const docRef2 = doc(db, "divices");
-      const docSnap2 = await getDoc(docRef2);
-      setDeviceInfo(docSnap2.data())
 }
-
-  const HandleUpdate = async () => {
-    const data = await form.validateFields();
-    // console.log(data);
-    await addDoc(collection(db, "devices"), {
-      id: data.id,
-      namedevice: data.namedevice,
-      ip: data.ip,
-      active_status: data.active_status,
-      type: data.type,
-      connection_status: data.connection_status,
-      username: data.username,
-      password: data.password,
-      services_used: data.services_used,
-    })
-      .then(() => {
-        // console.log("Document written:", docRef.id);
-        message.success("Thêm thành công!");
-        navigate(`/DevicePage/Table`);
-      })
-      .catch((error) => {
-        message.error("Thêm thất bại!");
-    });
-  };
-
-
-
-    useEffect(()=>{
-        fetchDataServices();
-    },[])
-    const HandleCancel = () => {
-      navigate(`/DevicePage/Table`)
-  
-  }
   return (
     //Họ và tên
     <Form form={form} layout="vertical">
@@ -128,8 +144,8 @@ const UpdateDevice = () => {
           >
             <Select
               options={[
-                { value: true, label: "Ngưng hoạt động" },
-                { value: false, label: "Hoạt động" },
+                { value: true, label: "Hoạt động" },
+                { value: false, label: "Ngưng hoạt động" },
               ]}
              />
           </Form.Item>
@@ -174,7 +190,7 @@ const UpdateDevice = () => {
             name="password"
             rules={[{ required: true, message: "Mật khẩu là bắt buộc!" }]}
           >
-            <Input placeholder="Nhập mật khẩu" />
+            <Input.Password placeholder="Nhập mật khẩu" />
           </Form.Item>
         </Col>
       </Row>

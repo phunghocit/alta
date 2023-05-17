@@ -80,7 +80,8 @@ const LoginFormUser = () => {
             />
           </div>
           <div>
-            <input type="submit" />
+            <input type="submit" value="Đăng nhập" />
+            
           </div>
         </form>
       </div>

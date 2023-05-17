@@ -20,9 +20,9 @@ import UserLogs from './pages/UserLogs';
 import RoleManagement from './pages/RoleManagement';
 import AddService from './pages/AddService';
 import ServiceManagement from './pages/ServiceManagement';
-import DeviceManagement from './pages/DeviceManagement';
+// import DeviceManagement from './pages/DeviceManagement';
 import AccountInfo from './pages/AccountInfo';
-import TableDevices from './components/DeviceDashboard/TableDevice';
+import TableDevices from './components/DeviceDashboard/TableDevices';
 import DevicePage from './pages/DevicePage';
 import ModalFormDevice from './components/DeviceDashboard/ModalFormDevice';
 import DeviceDashboard from './components/DeviceDashboard';
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute page={<TableDevices/>}/>
       },
       {
-        path: "Update",
+        path: "Update/:iddevices",
         element: <PrivateRoute page={<UpdateDevice/>}/>
       },
       {

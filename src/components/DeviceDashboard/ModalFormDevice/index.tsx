@@ -38,7 +38,7 @@ const ModalFormDevice = () => {
         );
         console.log(doc.id, " => ", doc.data().name);
 
-      });
+    });
       setOptions(newServices)
       setLoading(false)
 }
@@ -111,8 +111,8 @@ const ModalFormDevice = () => {
           >
             <Select
               options={[
-                { value: true, label: "Ngưng hoạt động" },
-                { value: false, label: "Hoạt động" },
+                { value: true, label: "Hoạt động" },
+                { value: false, label: "Ngưng hoạt động" },
               ]}
              />
           </Form.Item>
@@ -157,7 +157,7 @@ const ModalFormDevice = () => {
             name="password"
             rules={[{ required: true, message: "Mật khẩu là bắt buộc!" }]}
           >
-            <Input placeholder="Nhập mật khẩu" />
+            <Input.Password placeholder="Nhập mật khẩu" />
           </Form.Item>
         </Col>
       </Row>

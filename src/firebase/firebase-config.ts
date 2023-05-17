@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {getDatabase} from"firebase/database";
+import { getStorage } from 'firebase/storage';
+
 const config = {
   apiKey: "AIzaSyC87xvmhX9Udb_ZNmHuFBrn-mBof6XTqjE",
   authDomain: "demoalta57.firebaseapp.com",
@@ -15,6 +17,8 @@ const config = {
 const app = initializeApp(config);
 export const auth = getDatabase(app);
 export const auth2 = getAuth(app);
+export const storage = getStorage(app);
+
 export function getFirebaseConfig() {
   if (!config || !config.apiKey) {
     throw new Error('No Firebase configuration object provided.' + '\n' +

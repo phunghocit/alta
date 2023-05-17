@@ -1,4 +1,4 @@
-import { UserOutlined,ExclamationCircleFilled } from '@ant-design/icons';
+import { CloseCircleOutlined,CheckCircleOutlined,UserOutlined,ExclamationCircleFilled } from '@ant-design/icons';
 import { Button, Table, Modal, Row, Col } from "antd";
 import { TableCustom,ButtonCreate, ButtonAction } from './styles';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -100,9 +100,16 @@ const TableUsers =  () => {
             dataIndex: 'status',
             key: 'status',
             render: (text:any,item:any) =>{
-                return(
-                    <p>"true"</p>
-                )
+                if (item.status=="true") {
+                    return(
+                        <p><CheckCircleOutlined twoToneColor="#34CD26"/>Hoạt động</p>
+                    )
+                }else{
+                    return(
+                        <p><CloseCircleOutlined twoToneColor="#EC3740"/>Ngưng hoạt động</p>
+                        )
+                }
+
             }
         },
         // {

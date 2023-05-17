@@ -3,10 +3,17 @@ import { Dropdown, Space } from 'antd';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Role, UserInfo, Username } from './styles';
 import LoginFormUser from '../../../components/LoginFormUser';
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from '@firebase/firestore';
+import { db } from '../../../firebase/firebase';
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
+import { storage } from '../../../firebase/firebase-config';
 const AuthUser = () => {
     const navigate = useNavigate();
     // const id:string = "qu1hRepnC3eQh9y06UOW";
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
+    const [username,setUseName]=useState<any>();
     const info = () => {
         // localStorage.removeItem('token')
         navigate(`/AccountInfo`)
@@ -28,22 +35,55 @@ const AuthUser = () => {
 
       // const location = useLocation()
       // console.log(location);
-      
-    return(
-        <Dropdown
+      const fetchData = async () => {
+        const docRef = doc(db, "users",`${localStorage.getItem('token')}`);
+        const docSnap = await getDoc(docRef)
+        setUseName(docSnap.data())
+        console.log(username.fullname);
+        
+        // const docRef = query(
+        //   collection(db, "users"),
+        //   where("username", "==", localStorage.getItem("token"))
+        // ); //tra ve collection
+        // const docSnap = await getDocs(docRef);
+        // // console.log(docSnap)
+        // docSnap.forEach((doc) => {
+        //   //lấy từng doc trong firebase
+        //   console.log(doc.id, " => ", doc.data());
+        //   setUserInfo(doc.data());
+        // });
+      };
+    
+      useEffect(() => {
+        fetchData();
+      }, []);
+const imagesListRef2 = ref(storage, `images/${localStorage.getItem('token')}`);
+    
+useEffect(() => {
+  listAll(imagesListRef2).then((response) => {
+    response.items.forEach((item) => {
+      getDownloadURL(item).then((url) => {
+        setImageUrls((prev:any) => [...prev, url]);
+      });
+    });
+  });
+}, []);
+    return (
+      <Dropdown
         menu={{
           items,
         }}
       >
         <a onClick={(e) => e.preventDefault()}>
-            <UserInfo>
-              <img src="https://haycafe.vn/wp-content/uploads/2022/12/hinh-anh-avatar-dep-nam-ngau-chat.jpg"/>
-              <div>
-                <Role>Xin chào</Role>
-                <Username ></Username>
-              </div>
-              
-            </UserInfo>
+          <UserInfo>
+            {imageUrls.map((url) => {
+              return <img src={url} />;
+            })}
+            <div>
+              <Role>Xin chào</Role>
+              {username && <Username>{username.fullname}</Username>}
+            </div>
+          </UserInfo>
         </a>
       </Dropdown>
     );

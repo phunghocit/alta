@@ -28,7 +28,7 @@ const DEFAULT_USER = {
 const RegisterFormUser = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
+  const [loading,setLoading]=useState(false)
   const [formData, setFormData] = useState(DEFAULT_USER);
 
   const HandleSignUp = async () => {
@@ -59,7 +59,7 @@ const RegisterFormUser = () => {
   };
   return (
     //Họ và tên
-    <Form form={form} layout="vertical">
+    <Form form={form} layout="vertical" >
       <Title>Quản lý tài khoản</Title>
       <Title>Thông tin tài khoản</Title>
       <Row>
@@ -161,9 +161,9 @@ const RegisterFormUser = () => {
           >
             <Select
               options={[
-                { value: "Tất cả", label: "Tất cả" },
-                { value: "Ngưng hoạt động", label: "Ngưng hoạt động" },
-                { value: "Hoạt động", label: "Hoạt động" },
+                // { value: "Tất cả", label: "Tất cả" },
+                { value: "false", label: "Ngưng hoạt động" },
+                { value: "true", label: "Hoạt động" },
               ]}
             />
           </Form.Item>

@@ -1,4 +1,4 @@
-import TableDevices from "../../components/DeviceDashboard/TableDevice";
+import TableDevices from "../../components/DeviceDashboard/TableDevices";
 import Layout from "../../layouts/Private"
 
 

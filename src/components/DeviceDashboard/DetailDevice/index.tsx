@@ -1,8 +1,10 @@
-import { doc, getDoc } from '@firebase/firestore';
+import { collection, doc, getDoc, getDocs } from '@firebase/firestore';
 import { Button, Descriptions } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { db } from '../../../firebase/firebase';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useTimeout } from 'usehooks-ts'
+
 interface DeviceInfo {
   id: string,
   namedevice: string,
@@ -16,42 +18,72 @@ interface DeviceInfo {
 }
 
 const DetailDevice = () => {
-  const [device] = useState<DeviceInfo | any>();
+  const [device,setDevice] = useState<any>();
   let { iddevices } = useParams();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
+  // useTimeout(device, 5000)
   console.log(iddevices);
   
   const fetchDataServices = async () => {
-    const docRef = doc(db, "devices",`iddevices`);
+    // setLoading(true)
+    const docRef = doc(db, "devices",`${iddevices}`);
     const docSnap = await getDoc(docRef);
-    device(docSnap.data())
-    console.log(device);
-    
+    setDevice(docSnap.data())
+    // setLoading(false)
+
   };
+  console.log(device);
+
   useEffect(()=>{
     fetchDataServices();
 },[])
-  
+
+  const onEdit = (iddevices: any) => {
+    navigate(`/DevicePage/Update/${iddevices}`);
+  };
   return (
     <div>
-      <Descriptions
+      {device && (
+        <Descriptions 
+        // loading={loading}
         title="Custom Size"
-        column={{  md: 2 }}
+        column={{ md: 2 }}
         extra={
-          <Button type="primary" >
+          <Button
+            type="primary"
+            onClick={() => {
+              onEdit(iddevices);
+            }}
+          >
             Cập nhật thiết bị
           </Button>
         }
       >
         <Descriptions.Item label="Mã thiết bị:">
-          Cloud Database
+        {device.id||""}
         </Descriptions.Item>
-        <Descriptions.Item label="Tên thiết bị:">sad</Descriptions.Item>
-        <Descriptions.Item label="Địa chỉ IP:">18:00:00</Descriptions.Item>
-        <Descriptions.Item label="Loại thiết bị:">$80.00</Descriptions.Item>
-        <Descriptions.Item label="Tên đăng nhập:">$20.00</Descriptions.Item>
-        <Descriptions.Item label="Mật khẩu:">$60.00</Descriptions.Item>
-        <Descriptions.Item label="Dịch vụ sử dụng:">$60.00</Descriptions.Item>
+        <Descriptions.Item label="Tên thiết bị:">
+          {device.namedevice||"hoc"}
+        </Descriptions.Item>
+        <Descriptions.Item label="Địa chỉ IP:">
+          {device.ip||""}
+          </Descriptions.Item>
+        <Descriptions.Item label="Loại thiết bị:">
+          {device.type||""}
+        </Descriptions.Item>
+        <Descriptions.Item label="Tên đăng nhập:">
+          {device.username||""}
+        </Descriptions.Item>
+        <Descriptions.Item label="Mật khẩu:">
+          {device.password||""}
+        </Descriptions.Item>
+        <Descriptions.Item label="Dịch vụ sử dụng:">
+          {device.services_used||""}
+        </Descriptions.Item>
       </Descriptions>
+      )}
+      
     </div>
   );
 }
