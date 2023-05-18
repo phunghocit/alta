@@ -84,6 +84,15 @@ const TableDevices = () => {
       title: "Dịch vụ sử dụng",
       dataIndex: "services_used",
       key: "services_used",
+      render: (text: any, item: any) => {
+        return(
+          <div>{item.services_used.map((service:any)=>{
+              return(
+                <div>{service}</div>
+              )
+          })}</div>
+        )
+      },
     },
 
     {

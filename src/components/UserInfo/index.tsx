@@ -53,7 +53,7 @@ const imagesListRef2 = ref(storage, `images/${localStorage.getItem('token')}`);
 
 // const imagesListRef = ref(storage, `images/`);
 const uploadFile = () => {
-  setLoading(true)
+  // setLoading(true)
   listAll(imagesListRef2).then((response) => {
     response.items.forEach((item) => {
       deleteObject(item).then(() => { // Delete the file

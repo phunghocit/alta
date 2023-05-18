@@ -26,7 +26,6 @@ import TableDevices from './components/DeviceDashboard/TableDevices';
 import DevicePage from './pages/DevicePage';
 import ModalFormDevice from './components/DeviceDashboard/ModalFormDevice';
 // import DeviceDashboard from './components/DeviceDashboard';
-import UpdateDevice from './components/DeviceDashboard/UpdateDevice';
 import DetailDevice from './components/DeviceDashboard/DetailDevice';
 import ModalFormService from './components/ServiceForm/ModalFormService';
 import TableService from './components/ServiceForm/TableService';
@@ -108,8 +107,8 @@ const router = createBrowserRouter([
         element: <PrivateRoute page={<TableRole/>}/>
       },
       {
-        path: "Update/:iddevices",
-        element: <PrivateRoute page={<UpdateRole/>}/>
+        path: "Update/:idrole",
+        element: <PrivateRoute page={<ModalRole/>}/>
       }
     ]
   },
@@ -149,7 +148,7 @@ const router = createBrowserRouter([
       },
       {
         path: "Update/:iddevices",
-        element: <PrivateRoute page={<UpdateDevice/>}/>
+        element: <PrivateRoute page={<ModalFormDevice/>}/>
       },
       {
         path: "Detail/:iddevices",

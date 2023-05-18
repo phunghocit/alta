@@ -63,7 +63,7 @@ useEffect(() => {
   listAll(imagesListRef2).then((response) => {
     response.items.forEach((item) => {
       getDownloadURL(item).then((url) => {
-        setImageUrls((prev:any) => [...prev, url]);
+      setImageUrls((prev:any) => [...prev, url]);
       });
     });
   });

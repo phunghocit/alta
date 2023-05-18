@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 import { db } from '../../../firebase/firebase';
 import {  collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { getDatabase } from 'firebase/database';
-
+import active from '../../../shared/images/Ellipse1true.png'
+import inactive from '../../../shared/images/Ellipse1false.png'
 
 const {confirm} = Modal;
 
@@ -102,11 +103,11 @@ const TableUsers =  () => {
             render: (text:any,item:any) =>{
                 if (item.status==true) {
                     return(
-                        <p><CheckCircleOutlined twoToneColor="#34CD26"/>Hoạt động</p>
+                        <p><img src={active}/>Hoạt động</p>
                     )
                 }else{
                     return(
-                        <p><CloseCircleOutlined twoToneColor="#EC3740"/>Ngưng hoạt động</p>
+                        <p><img src={inactive}/>Ngưng hoạt động</p>
                         )
                 }
 

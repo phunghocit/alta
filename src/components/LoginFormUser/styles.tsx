@@ -12,7 +12,6 @@ export const LoginWrapper = styled.div`
   -webkit-backdrop-filter: blur(6.1px);
   border: 3px solid rgba(255, 255, 255, 0.5);
   position: relative;
-  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,16 +27,6 @@ export const LoginWrapper = styled.div`
 export const Title = styled.h2`
   font-size: 3rem;
   margin: 0;
-  background: #c6ffdd; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right bottom,
-    #f7797d,
-    #fbd786,
-    #c6ffdd
-  );
-  background: linear-gradient(to right bottom, #f7797d, #fbd786, #c6ffdd);
-  -webkit-background-clip: text;
-  color: transparent;
 
   @media screen and (max-width:600px){
     font-size: 4rem;
@@ -53,11 +42,8 @@ export const LabelCustom = styled.h3`
   margin: 0;
   margin-bottom: 0.1rem;
   margin-top: 3rem;
-  background: #c6ffdd; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f7797d, #fbd786, #c6ffdd);
-  background: linear-gradient(to right, #f7797d, #fbd786, #c6ffdd);
-  -webkit-background-clip: text;
-  color: transparent;
+
+  color: black;
 
   @media screen and (max-width:600px){
     font-size: 1.5rem;
@@ -69,7 +55,6 @@ export const InputCustom = styled(Input)`
   border: transparent;
   border-bottom: 2px solid white;
   border-radius: 0px;
-  color: #fbd786;
   font-size: 1.5rem;
   padding: 2px 0;
   position: relative;
@@ -79,7 +64,7 @@ export const InputCustom = styled(Input)`
     position: absolute;
     width: 100px;
     height: 20px;
-    background-color: green;
+    /* background-color: green; */
     top: 100%;
     right: 0;
     z-index: 1;
@@ -105,26 +90,14 @@ export const ButtonLogin = styled(Button)`
   height: auto;
   font-size: 1.25rem;
   font-weight: bold;
-  color: white;
+  /* color: white; */
   padding: 0.25rem 1.5rem;
-  background: #c6ffdd; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right bottom,
-    #f7797d,
-    #fbd786,
-    #c6ffdd
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right bottom,
-    #f7797d,
-    #fbd786,
-    #c6ffdd
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   transition: 0.8s ease;
   border-radius: 1rem;
 
   &:hover {
-    -webkit-background-clip: text;
+    /* -webkit-background-clip: text; */
     color: transparent !important;
     border-image-slice: 1;
     border-image-source: linear-gradient(to right bottom, #6a5af9, #f62682);

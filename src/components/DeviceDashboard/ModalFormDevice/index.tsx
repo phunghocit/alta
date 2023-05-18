@@ -10,11 +10,11 @@ import {
   SubmitButton,
   Title,
 } from "./styles";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { Button,Select,Row,Col } from 'antd'
 import { db } from "../../../firebase/firebase";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ModalFormDevice = () => {
   const [loading, setLoading] = useState(false)
@@ -22,7 +22,20 @@ const ModalFormDevice = () => {
   const [options,setOptions] = useState();
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  let { iddevices } = useParams();
+  const [device,setDevice] = useState<any>();
 
+  const fetchDataDevice = async () => {
+    // setLoading(true)
+    const docRef = doc(db, "devices",`${iddevices}`);
+    const docSnap = await getDoc(docRef);
+    setDevice(docSnap.data())
+    // setLoading(false)
+    console.log(device);
+
+  };
+
+  
   const fetchDataServices = async () => {
     setLoading(true)
     const docRef = collection(db, "services"); //tra ve collection 
@@ -41,41 +54,90 @@ const ModalFormDevice = () => {
     });
       setOptions(newServices)
       setLoading(false)
-}
+  }
 
   const SubmitDevice = async () => {
-    const data = await form.validateFields();
-    // console.log(data);
-    await addDoc(collection(db, "devices"), {
-      id: data.id,
-      namedevice: data.namedevice,
-      ip: data.ip,
-      active_status: data.active_status,
-      type: data.type,
-      connection_status: data.connection_status,
-      username: data.username,
-      password: data.password,
-      services_used: data.services_used,
-    })
-      .then(() => {
-        // console.log("Document written:", docRef.id);
-        message.success("Thêm thành công!");
-        navigate(`/DevicePage/Table`);
+    if (iddevices) {
+      const data = await form.validateFields();
+      // console.log(data);
+      await updateDoc(doc(db, "devices",`${iddevices}`), {
+        id: data.id,
+        namedevice: data.namedevice,
+        ip: data.ip,
+        active_status: data.active_status,
+        type: data.type,
+        connection_status: data.connection_status,
+        username: data.username,
+        password: data.password,
+        services_used: data.services_used,
       })
-      .catch((error) => {
-        message.error("Thêm thất bại!");
-    });
-  };
+        .then(() => {
+          // console.log("Document written:", docRef.id);
+          message.success("Cập nhật thành công!");
+          navigate(`/DevicePage/Table`);
+        })
+        .catch((error) => {
+          message.error("Cập nhật thất bại!");
+      });
+    }else{
+    const data = await form.validateFields();
+
+      const querySnapshot = await getDocs(collection(db, "users"));
+      let check='Sai tài khoản hoặc mật khẩu!';
+      querySnapshot.forEach(async (doc:any) => {
+          if (doc.data().username===data.username && doc.data().password===data.password) {
+            check='';
+            try{
+              await addDoc(collection(db, "devices"), {
+                id: data.id,
+                namedevice: data.namedevice,
+                ip: data.ip,
+                active_status: data.active_status,
+                type: data.type,
+                connection_status: data.connection_status,
+                username: data.username,
+                password: data.password,
+                services_used: data.services_used, 
+              })
+              // console.log("Document written:", docRef.id);
+              message.success("Thêm thành công!");
+              
+              navigate(`/DevicePage/Table`);
+
+            }
+            catch (error){
+              message.error("Thêm thất bại!");
+            }
+            
+         }
+        })
+        if(check==='Sai tài khoản hoặc mật khẩu!'){
+          message.error(check);
+        }
+    // console.log(data);
+
+    };
+  }
 
 
 
     useEffect(()=>{
         fetchDataServices();
+        if(iddevices){
+          fetchDataDevice();
+        }
+
     },[])
+    useEffect(() => {
+      if(device){
+        form.setFieldsValue(device);
+  
+      }
+      
+    }, [device]);
     const HandleCancel = () => {
       navigate(`/DevicePage/Table`)
-  
-  }
+    }
   return (
     //Họ và tên
     <Form form={form} layout="vertical">
@@ -180,7 +242,7 @@ const ModalFormDevice = () => {
       </Row>
       <Row style={{ display: "flex", justifyContent: "center" }}>
         <CancelButton onClick={HandleCancel}>Huỷ bỏ</CancelButton>
-        <SubmitButton onClick={SubmitDevice}>Thêm thiết bị</SubmitButton>
+        <SubmitButton onClick={SubmitDevice}>{iddevices?"Cập nhật":"Thêm thiết bị"}</SubmitButton>
       </Row>
     </Form>
   );

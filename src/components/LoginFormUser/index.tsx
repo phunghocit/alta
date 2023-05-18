@@ -6,13 +6,15 @@ import { db } from '../../firebase/firebase'
 import { useNavigate } from 'react-router-dom'
 import  firebase  from '@firebase/app'
 import { collection, doc, getDocs, getFirestore } from 'firebase/firestore'
-import { message } from 'antd'
+import { Form, message } from 'antd'
+import { FormLogin, InputCustom, LabelCustom, LoginWrapper } from './styles'
 const defaultFormFields = {
   username: '',
   password: '',
 }
 
 const LoginFormUser = () => {
+  const [form] = Form.useForm();
 
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { username, password } = formFields
@@ -51,7 +53,20 @@ const LoginFormUser = () => {
   }
 
   return(
-    <div className="App">
+    <div>
+        <LoginWrapper>
+        <FormLogin form={form} layout="vertical">
+                <LabelCustom>Username</LabelCustom>
+                <Form.Item name="username" rules={[{required: true, message:"Tên người dùng là bắt buộc"}]}>
+                    <InputCustom/>
+                </Form.Item>
+                <LabelCustom>Mật khẩu</LabelCustom>
+                <Form.Item name="password" rules={[{required: true, message:"Mật khẩu là bắt buộc"}]}>
+                    <InputCustom type="password"/>
+                </Form.Item>
+            </FormLogin>
+        </LoginWrapper>
+
       <div className="card" >
         <div className='logo-alta'>
           <a href="" target="_blank">
