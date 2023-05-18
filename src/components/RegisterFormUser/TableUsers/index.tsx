@@ -100,7 +100,7 @@ const TableUsers =  () => {
             dataIndex: 'status',
             key: 'status',
             render: (text:any,item:any) =>{
-                if (item.status=="true") {
+                if (item.status==true) {
                     return(
                         <p><CheckCircleOutlined twoToneColor="#34CD26"/>Hoạt động</p>
                     )

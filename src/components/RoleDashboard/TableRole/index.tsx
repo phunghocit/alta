@@ -2,7 +2,7 @@ import React from 'react'
 
 const TableRole = () => {
   return (
-<div></div>
+  <div>Table Role</div>
   );
 }
 

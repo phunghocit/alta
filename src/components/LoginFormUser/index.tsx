@@ -81,6 +81,7 @@ const LoginFormUser = () => {
           </div>
           <div>
             <input type="submit" value="Đăng nhập" />
+            {/* <input type="submit" value="Quên mật khẩu ?" /> */}
             
           </div>
         </form>

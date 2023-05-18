@@ -1,4 +1,5 @@
 import { Button, Col, Row } from 'antd';
+import { CloseCircleOutlined,CheckCircleOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ButtonAction, ButtonCreate, TableCustom } from './styles';
@@ -67,9 +68,16 @@ const TableService = () => {
                 dataIndex: 'status',
                 key: 'status',
                 render: (text:any,item:any) =>{
-                    return(
-                        <p>"true"</p>
-                    )
+                    if (item.status==true) {
+                        return(
+                            <p><CheckCircleOutlined twoToneColor="#34CD26"/>Hoạt động</p>
+                        )
+                    }else{
+                        return(
+                            <p><CloseCircleOutlined twoToneColor="#EC3740"/>Ngưng hoạt động</p>
+                            )
+                    }
+    
                 }
             },
             // {

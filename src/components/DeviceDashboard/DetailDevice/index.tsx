@@ -63,18 +63,18 @@ const DetailDevice = () => {
         <Descriptions.Item label="Mã thiết bị:">
         {device.id||""}
         </Descriptions.Item>
-        <Descriptions.Item label="Tên thiết bị:">
-          {device.namedevice||"hoc"}
-        </Descriptions.Item>
-        <Descriptions.Item label="Địa chỉ IP:">
-          {device.ip||""}
-          </Descriptions.Item>
         <Descriptions.Item label="Loại thiết bị:">
           {device.type||""}
+        </Descriptions.Item>
+        <Descriptions.Item label="Tên thiết bị:">
+          {device.namedevice||"hoc"}
         </Descriptions.Item>
         <Descriptions.Item label="Tên đăng nhập:">
           {device.username||""}
         </Descriptions.Item>
+        <Descriptions.Item label="Địa chỉ IP:">
+          {device.ip||""}
+          </Descriptions.Item>
         <Descriptions.Item label="Mật khẩu:">
           {device.password||""}
         </Descriptions.Item>

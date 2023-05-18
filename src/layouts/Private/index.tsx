@@ -33,7 +33,7 @@ const PrivateLayout = ({ children, title }:Props) => {
   }
   const items: MenuProps["items"] = [
     {
-      label: <MenuItem to="/RoleManagement"> Quản lý vài trò </MenuItem>,
+      label: <MenuItem to="/RoleManagement/AddRole"> Quản lý vài trò </MenuItem>,
       key: "0",
     },
     {

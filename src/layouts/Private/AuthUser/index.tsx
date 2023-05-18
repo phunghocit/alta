@@ -39,7 +39,7 @@ const AuthUser = () => {
         const docRef = doc(db, "users",`${localStorage.getItem('token')}`);
         const docSnap = await getDoc(docRef)
         setUseName(docSnap.data())
-        console.log(username.fullname);
+        // console.log(username.fullname);
         
         // const docRef = query(
         //   collection(db, "users"),

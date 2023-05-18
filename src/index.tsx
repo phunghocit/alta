@@ -40,8 +40,12 @@ import UpdateRole from './components/RoleDashboard/UpdateRole';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PublicRoute page={<Login/>}/>
-  },
+    element: <PublicRoute page={<Login/>}/>,
+    children: [
+
+      
+    ]
+  },   
   {
     path: "/Dashboard",
     element: <PrivateRoute page={<Dashboard/>}/>
