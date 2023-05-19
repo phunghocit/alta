@@ -67,7 +67,7 @@ const DetailDevice = () => {
           {device.type||""}
         </Descriptions.Item>
         <Descriptions.Item label="Tên thiết bị:">
-          {device.namedevice||"hoc"}
+          {device.namedevice||""}
         </Descriptions.Item>
         <Descriptions.Item label="Tên đăng nhập:">
           {device.username||""}

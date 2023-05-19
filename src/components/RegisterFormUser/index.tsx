@@ -10,11 +10,11 @@ import {
   SubmitButton,
   Title,
 } from "./styles";
-import { addDoc, collection, setDoc, doc, getDocs } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc, getDocs, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { Button, Select, Row, Col } from "antd";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 const DEFAULT_USER = {
   fullname: "",
   phone: "",
@@ -30,8 +30,55 @@ const RegisterFormUser = () => {
   const navigate = useNavigate();
   const [loading,setLoading]=useState(false)
   const [formData, setFormData] = useState(DEFAULT_USER);
+  let { iduser } = useParams();
+  const [users,setUsers] = useState<any>();
 
+  const fetchDataUser = async () => {
+    // setLoading(true)
+    const docRef = doc(db, "users",`${iduser}`);
+    const docSnap = await getDoc(docRef);
+    setUsers(docSnap.data())
+    // setLoading(false)
+    console.log(users);
+
+  };
+  useEffect(()=>{
+    if(iduser){
+      fetchDataUser();
+    }
+
+},[])
+useEffect(() => {
+  if(users){
+    form.setFieldsValue(users);
+
+  }
+  
+}, [users]);
   const HandleSignUp = async () => {
+    if (iduser) {
+      const data = await form.validateFields();
+      // console.log(data);
+      await updateDoc(doc(db, "users",`${iduser}`), {
+        fullname: data.fullname,
+        phone: data.phone,
+        email: data.email,
+        role: data.role,
+        username: data.username,
+        password: data.password,
+        status: data.status,
+      })
+        .then(() => {
+          // console.log("Document written:", docRef.id);
+          message.success("Cập nhật thành công!");
+          navigate(`/AccountManagement`);
+
+        })
+        .catch((error) => {
+          message.error("Cập nhật thất bại!");
+      });
+    }
+    else{
     const data = await form.validateFields();
     // console.log(data);
     await addDoc(collection(db, "users"), {
@@ -52,6 +99,8 @@ const RegisterFormUser = () => {
         message.error("Thêm thất bại!");
         // console.error("Error add doc: ", error);
       });
+    }
+
   };
   const HandleCancel = () => {
     setFormData(DEFAULT_USER);
@@ -60,8 +109,8 @@ const RegisterFormUser = () => {
   return (
     //Họ và tên
     <Form form={form} layout="vertical" >
-      <Title>Quản lý tài khoản</Title>
-      <Title>Thông tin tài khoản</Title>
+      {/* <Title>Quản lý tài khoản</Title>
+      <Title>Thông tin tài khoản</Title> */}
       <Row>
         <Col xs={{ span: 9, offset: 1 }} lg={{ span: 9, offset: 2 }}>
           <Form.Item
@@ -173,9 +222,8 @@ const RegisterFormUser = () => {
         <CancelButton type="primary" onClick={HandleCancel}>
           Huỷ bỏ
         </CancelButton>
-        <SubmitButton type="primary" onClick={HandleSignUp}>
-          Thêm{" "}
-        </SubmitButton>
+        <SubmitButton onClick={HandleSignUp}>{iduser?"Cập nhật":"Thêm thiết bị"}</SubmitButton>
+
       </Row>
     </Form>
   );

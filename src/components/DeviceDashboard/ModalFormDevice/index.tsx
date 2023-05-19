@@ -24,6 +24,7 @@ const ModalFormDevice = () => {
   const [form] = Form.useForm();
   let { iddevices } = useParams();
   const [device,setDevice] = useState<any>();
+  console.log(iddevices);
 
   const fetchDataDevice = async () => {
     // setLoading(true)

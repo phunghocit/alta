@@ -51,7 +51,9 @@ const LoginFormUser = () => {
     const { name, value } = event.target
     setFormFields({...formFields, [name]: value })
   }
-
+  const forgetpassword=()=>{
+    navigate('/Forgetpassword')
+  }
   return(
     <div>
         <LoginWrapper>
@@ -96,6 +98,7 @@ const LoginFormUser = () => {
           </div>
           <div>
             <input type="submit" value="Đăng nhập" />
+            <a href="" onClick={forgetpassword}>Quên mật khẩu ?</a>
             {/* <input type="submit" value="Quên mật khẩu ?" /> */}
             
           </div>

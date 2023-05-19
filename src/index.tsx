@@ -34,6 +34,9 @@ import DetailService from './components/ServiceForm/DetailService';
 import ModalRole from './components/RoleDashboard/ModalRole';
 import TableRole from './components/RoleDashboard/TableRole';
 import UpdateRole from './components/RoleDashboard/UpdateRole';
+import Forgetpassword from './components/Forgetpassword';
+import ResetPassword from './components/ResetPassword';
+// import ResetPasswords from './pages/ResetPasswords';
 
 
 const router = createBrowserRouter([
@@ -44,7 +47,15 @@ const router = createBrowserRouter([
 
       
     ]
-  },   
+  },  
+  {
+    path: "/Forgetpassword",
+    element: <PublicRoute page={<Forgetpassword/>}/>
+  },
+  {
+    path: "/ResetPassword/:iduser",
+    element: <PublicRoute page={<ResetPassword/>}/>
+  }, 
   {
     path: "/Dashboard",
     element: <PrivateRoute page={<Dashboard/>}/>
@@ -88,6 +99,10 @@ const router = createBrowserRouter([
     //Thêm tài khoản  
   {
     path: "/AddUser",
+    element: <PrivateRoute page={<AddUser/>}/>
+  }, 
+  {
+    path: "/UpdateUser/:iduser",
     element: <PrivateRoute page={<AddUser/>}/>
   }, 
   // {

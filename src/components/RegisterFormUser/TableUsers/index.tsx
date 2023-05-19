@@ -26,11 +26,13 @@ const TableUsers =  () => {
         
         let newUsers:any = []
         docSnap.forEach((doc) => { //lấy từng doc trong firebase
-            newUsers.push(doc.data()); //lấy hết data vào trong mảng tạm newUsers
+            newUsers.push({...doc.data(), iduser: doc.id}); //lấy hết data vào trong mảng tạm newUsers
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
           });
           setUsers(newUsers);
+          console.log(newUsers);
+          
     }
         
     useEffect(()=>{
@@ -46,9 +48,9 @@ const TableUsers =  () => {
     
     }
     
-    const onEdit = (id:any) => {
-    
-    }
+    const onEdit = (iduser: any) => {
+        navigate(`/UpdateUser/${iduser}`);
+      };
     const loading = (id:any) => {
     
     }
@@ -110,6 +112,7 @@ const TableUsers =  () => {
                         <p><img src={inactive}/>Ngưng hoạt động</p>
                         )
                 }
+                // return <p>{text === true ? "Kết nối" : "Mất kết nối"}</p>;
 
             }
         },
@@ -130,7 +133,7 @@ const TableUsers =  () => {
             render: (_:any,item:any) =>{
                 return(
                     <div>
-                        <ButtonAction  onClick={()=>{onEdit(item.id)}}>Cập nhật</ButtonAction>
+                        <ButtonAction  onClick={()=>{onEdit(item.iduser)}}>Cập nhật</ButtonAction>
                     </div>
                 )
             }

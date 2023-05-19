@@ -7,11 +7,16 @@ interface Props {
 const PublicRoute = ({page}:Props) => {
     const navigate = useNavigate();
     const token = localStorage.getItem(`token`)
+    // const token2 = localStorage.getItem(`token2`)
 
     useEffect(()=>{
         if(token){
             navigate("/Dashboard");
         }
+        // if(token2){
+        //     navigate("/ResetPassword/:doc.id");
+
+        // }
     },[])
 
     return(
