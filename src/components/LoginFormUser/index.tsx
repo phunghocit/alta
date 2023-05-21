@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import  firebase  from '@firebase/app'
 import { collection, doc, getDocs, getFirestore } from 'firebase/firestore'
 import { Form, message } from 'antd'
-import { FormLogin, InputCustom, LabelCustom, LoginWrapper } from './styles'
+import { ButtonLogin, FormLogin, InputCustom, LabelCustom, LoginWrapper } from './styles'
 const defaultFormFields = {
   username: '',
   password: '',
@@ -36,7 +36,6 @@ const LoginFormUser = () => {
           resetFormFields()
       // console.log(accountlogin);
       // console.log(`${doc.id} => ${doc.data().username} ${doc.data().password}`);
-
           navigate('/Dashboard')
         }
     });
@@ -57,7 +56,7 @@ const LoginFormUser = () => {
   return(
     <div>
         <LoginWrapper>
-        <FormLogin form={form} layout="vertical">
+        <FormLogin  form={form} layout="vertical">
                 <LabelCustom>Username</LabelCustom>
                 <Form.Item name="username" rules={[{required: true, message:"Tên người dùng là bắt buộc"}]}>
                     <InputCustom/>
@@ -66,7 +65,11 @@ const LoginFormUser = () => {
                 <Form.Item name="password" rules={[{required: true, message:"Mật khẩu là bắt buộc"}]}>
                     <InputCustom type="password"/>
                 </Form.Item>
+            {/* <ButtonLogin onClick={handleSubmit}>Log in</ButtonLogin> */}
+
             </FormLogin>
+            <input type="submit" value="Đăng nhập" />
+
         </LoginWrapper>
 
       <div className="card" >

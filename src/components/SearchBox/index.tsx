@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react"
 import { useNavigate, useLocation } from "react-router-dom";
 import { SearchCustom } from "./styles";
+import Search from "antd/es/input/Search";
 
 const SearchBox = () => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const SearchBox = () => {
         navigate(`${location.pathname}?keyword=${value}`);
     }
 
-    // return <SearchCustom value={keyword} onChange={onSearch}/>
+    return <Search placeholder="Nhập từ khoá" value={`${keyword}`} onChange={onSearch}/>
 }
 
 export default SearchBox;

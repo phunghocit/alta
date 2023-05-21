@@ -10,27 +10,79 @@ import {
   SubmitButton,
   Title,
 } from "../../DeviceDashboard/ModalFormDevice/styles";
-import { addDoc, collection, setDoc, doc, getDocs } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc, getDocs, getDoc, updateDoc } from "firebase/firestore";
 import { Button,Select,Row,Col } from 'antd'
 import { db } from "../../../firebase/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+// const CheckboxGroup = Checkbox.Group;
 
-
+const options = [
+  { label: 'Tăng tự động từ: 0001 đến 9999', value: 'A' },
+  { label: 'Prefix: 0001', value: 'B' },
+  { label: 'Surfix:: 0001', value: 'C' },
+  { label: 'Reset mỗi ngày', value: 'D' },
+];
 const ModalFormService = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  // const [checkedList, setCheckedList] = useState<CheckboxValueType[]>();
+  let { idservice } = useParams();
+  const [service,setservice] = useState<any>();
 
 
+  const fetchDataService = async () => {
+    // setLoading(true)
+    const docRef = doc(db, "services",`${idservice}`);
+    const docSnap = await getDoc(docRef)
+
+    setservice(docSnap.data());
+
+    // setLoading(false)
+
+  }
+  useEffect(()=>{
+    if(idservice){
+      fetchDataService();
+        // console.log(checkedList);
+
+    }
+},[])
+useEffect(() => {
+  if (service) {
+    form.setFieldsValue(service);
+  }
+}, [service]);
   const HandleCreate = async () => {
     const data = await form.validateFields();
+
+    if (idservice) {
+      const data = await form.validateFields();
+      // console.log(data);
+      await updateDoc(doc(db, "services",`${idservice}`), {
+        id: data.id,
+        name: data.name,
+        description: data.description,
+          status: data.status,
+          rule: data.rule
+      })
+        .then(() => {
+          // console.log("Document written:", docRef.id);
+          message.success("Cập nhật thành công!");
+          navigate(`/ServiceManagement/Table`);
+        })
+        .catch((error) => {
+          message.error("Cập nhật thất bại!");
+      });
+    }else{
     // console.log(data);
     await addDoc(collection(db,"services"), {
       id: data.id,
       name: data.name,
       description: data.description,
-        status: data.status
+        status: data.status,
+        rule: data.rule
       })  .then((docRef) => {console.log("Document written:", docRef.id)
       message.success('Thêm thành công!')
       navigate(`/ServiceManagement/Table`)
@@ -38,19 +90,20 @@ const ModalFormService = () => {
     })
       .catch((error) => {console.error("Error add doc: ", error);
       });
-
+    }
   };
   const HandleCancel = () => {
     navigate(`/ServiceManagement/Table`)
 
 }
   
-  const onChange = (checkedValues: CheckboxValueType[]) => {
-    console.log('checked = ', checkedValues);
+;
+  const onChange = (list: CheckboxValueType[] ) => {
+        // setCheckedList(list);
   };
   return (
     //Họ và tên
-    <Form form={form} layout="vertical" >
+    <Form form={form} layout="vertical">
       <Row gutter={[48, 16]}>
         <Col span={12}>
           <Form.Item
@@ -83,37 +136,27 @@ const ModalFormService = () => {
           >
             <Select
               options={[
-                { value: true, label: "Ngưng hoạt động" },
-                { value: false, label: "Hoạt động" },
+                { value: false, label: "Ngưng hoạt động" },
+                { value: true, label: "Hoạt động" },
               ]}
             />
           </Form.Item>
         </Col>
       </Row>
-      <Row  gutter={[48, 32]}>
+      <Row gutter={[48, 32]}>
         <Form.Item
           label="Quy tắc cấp số"
-          name="id"
+          name="rule"
           rules={[{ required: true, message: "Vui lòng chọn!" }]}
         >
-          <Row>
-            <Checkbox value="A">Tăng tự động từ: 0001 đến 9999</Checkbox> 
-          </Row>
-          <Row>
-            <Checkbox value="B">Prefix: 0001</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="C">Surfix: 0001</Checkbox>
-          </Row>
-          <Row>
-            <Checkbox value="D">Reset mỗi ngày</Checkbox>
-          </Row>
+          <Checkbox.Group options={options} defaultValue={['']} onChange={onChange} />
         </Form.Item>
       </Row>
 
       <Row>
         <CancelButton onClick={HandleCancel}>Huỷ bỏ</CancelButton>
-        <SubmitButton onClick={HandleCreate}>Thêm Dịch vụ</SubmitButton>
+        <SubmitButton onClick={HandleCreate}>{idservice?"Cập nhật":"Thêm thiết bị"}</SubmitButton>
+
       </Row>
     </Form>
   );

@@ -32,7 +32,27 @@ const RegisterFormUser = () => {
   const [formData, setFormData] = useState(DEFAULT_USER);
   let { iduser } = useParams();
   const [users,setUsers] = useState<any>();
+  const [options,setOptions] = useState();
 
+  const fetchDataRole = async () => {
+    setLoading(true)
+    const docRef = collection(db,"roles"); //tra ve collection 
+    const docSnap = await getDocs(docRef);
+    
+    let newRole:any = []
+    docSnap.forEach((doc) => { //lấy từng doc trong firebase
+      newRole.push(
+          {
+              value: doc.data().namerole,
+              label: doc.data().namerole,
+            }
+        );
+        console.log(doc.id, " => ", doc.data().name);
+
+    });
+      setOptions(newRole)
+      setLoading(false)
+  }
   const fetchDataUser = async () => {
     // setLoading(true)
     const docRef = doc(db, "users",`${iduser}`);
@@ -43,6 +63,8 @@ const RegisterFormUser = () => {
 
   };
   useEffect(()=>{
+    fetchDataRole();
+
     if(iduser){
       fetchDataUser();
     }
@@ -155,11 +177,7 @@ useEffect(() => {
             rules={[{ required: true, message: "Không được để trống" }]}
           >
             <Select
-              options={[
-                { value: "Kế toán", label: "Kế toán" },
-                { value: "Quản lý", label: "Quản lý" },
-                { value: "Admin", label: "Admin" },
-              ]}
+              options={options}
             />
           </Form.Item>
         </Col>

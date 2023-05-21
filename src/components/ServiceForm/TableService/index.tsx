@@ -1,10 +1,11 @@
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Form, Row } from 'antd';
 import { CloseCircleOutlined,CheckCircleOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ButtonAction, ButtonCreate, TableCustom } from './styles';
+import { ButtonAction, ButtonCreate, Headbar, TableCustom } from './styles';
 import { collection, getDocs } from '@firebase/firestore';
 import { db } from '../../../firebase/firebase';
+import SearchBox from '../../SearchBox';
 
 const TableService = () => {
     const navigate = useNavigate();
@@ -18,13 +19,15 @@ const TableService = () => {
         }
 
         
+
+
     const fetchData = async () => {
         const docRef = collection(db, "services"); //tra ve collection 
         const docSnap = await getDocs(docRef);
         
         let newServices:any = []
         docSnap.forEach((doc) => { //lấy từng doc trong firebase
-            newServices.push(doc.data()); //lấy hết data vào trong mảng tạm newUsers
+            newServices.push({...doc.data(), idservice: doc.id}); //lấy hết data vào trong mảng tạm newUsers
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
           });
@@ -39,8 +42,12 @@ const TableService = () => {
     useEffect(()=>{
         console.log(services);
     },[setServices])
-    const onEdit = (id:any) => {
+    const onEdit = (idservice:any) => {
+        navigate(`/ServiceManagement/Update/${idservice}`);
     
+    }
+    const ondetail = () => {
+        // localStorage.removeItem('token')
     }
         const columns =[
             {
@@ -99,8 +106,19 @@ const TableService = () => {
                 render: (_:any,item:any) =>{
                     return(
                         <div>
-                            <ButtonAction  onClick={()=>{onEdit(item.id)}}>Chi tiết</ButtonAction>
-                            <ButtonAction  onClick={()=>{onEdit(item.id)}}>Cập nhật</ButtonAction>
+                            <ButtonAction  onClick={()=>{ondetail()}}>Chi tiết</ButtonAction>
+                        </div>
+                    )
+                }
+            },
+            {
+                title: '',
+                dataIndex: 'action',
+                key: 'action',
+                render: (_:any,item:any) =>{
+                    return(
+                        <div>
+                            <ButtonAction  onClick={()=>{onEdit(item.idservice)}}>Cập nhật</ButtonAction>
                         </div>
                     )
                 }
@@ -108,28 +126,35 @@ const TableService = () => {
         ]
         
   return (
-    <Row wrap={false}>
-    <Col flex="auto">
+    <div>
+        <Row>
+      <Headbar>
+        <SearchBox />
+      </Headbar>
+      </Row>
+      <Row wrap={false}>
+        <Col flex="auto">
+          <TableCustom
+            columns={columns}
+            dataSource={services}
+            // loading={loading}
+            scroll={{ y: 430 }}
+            onChange={(pagination: any) => {
+              const searchParams = new URLSearchParams(location.search);
+              searchParams.set("page", pagination.current);
+              searchParams.set("limit", pagination.pageSize);
 
-    <TableCustom 
-        columns={columns} 
-        dataSource={services} 
-        // loading={loading} 
-        scroll={{y: 430}}
-        onChange={(pagination:any) => {
-            const searchParams = new URLSearchParams(location.search);
-            searchParams.set("page",pagination.current);
-            searchParams.set("limit",pagination.pageSize);
-
-            navigate(`${location.pathname}?${searchParams.toString()}`);
-            console.log(location)
-    }}/> 
-    </Col>
-    <Col flex="none">
-        <ButtonCreate onClick={AddService}>Thêm dịch vụ</ButtonCreate>
-    </Col>
-</Row>
-  )
+              navigate(`${location.pathname}?${searchParams.toString()}`);
+              console.log(location);
+            }}
+          />
+        </Col>
+        <Col flex="none">
+          <ButtonCreate onClick={AddService}>Thêm dịch vụ</ButtonCreate>
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
 export default TableService

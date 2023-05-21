@@ -18,14 +18,13 @@ const TableUsers =  () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-
-
     const fetchData = async () => {
         const docRef = collection(db, "users"); //tra ve collection 
         const docSnap = await getDocs(docRef);
         
         let newUsers:any = []
         docSnap.forEach((doc) => { //lấy từng doc trong firebase
+            
             newUsers.push({...doc.data(), iduser: doc.id}); //lấy hết data vào trong mảng tạm newUsers
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());

@@ -1,13 +1,14 @@
+import NumberLevelForm from "../../components/NumberLevelForm";
 import Layout from "../../layouts/Private"
 
-import React from 'react'
 
 const NumberLevel = () => {
-  return (
-    <Layout>
-        NumberLevel
-    </Layout>
-  )
+
+    return(
+        <Layout>
+            <NumberLevelForm/>
+        </Layout>
+    )
 }
 
-export default NumberLevel
+export default NumberLevel;

@@ -1,70 +1,96 @@
 import React, { useEffect, useState } from 'react'
 import { Checkbox, Col, Divider, Form, Input, Row, message } from 'antd'
 import { CancelButton, SubmitButton } from './styles';
-import { useNavigate } from 'react-router-dom';
-import { addDoc, collection } from '@firebase/firestore';
+import { useNavigate, useParams } from 'react-router-dom';
+import { addDoc, collection, doc, getDoc, updateDoc } from '@firebase/firestore';
 import { db } from '../../../firebase/firebase';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
-const CheckboxGroup = Checkbox.Group;
 
-const plainOptions = ['Chức năng X', 'Chức năng Y', 'Chức năng Z'];
-const plainOptionsB = ['Chức năng G', 'Chức năng H', 'Chức năng K'];
-// const plainOptionsB = ['Chức năng X', 'Chức năng Y', 'Chức năng Z'];
-const defaultCheckedList = [''];
-// const defaultCheckedListB = [''];
+const plainOptions = [
+  { label: 'Chức năng A', value: 'A' },
+  { label: 'Chức năng B', value: 'B' },
+  { label: 'Chức năng C', value: 'C' },
+ ];
+const plainOptionsB = [
+  { label: 'Chức năng X', value: 'X' },
+  { label: 'Chức năng Y', value: 'Y' },
+  { label: 'Chức năng Z', value: 'Z' },
+];
 const ModalRole = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
-    // const [form2] = Form.useForm();
-    const [checkedList, setCheckedList] = useState<CheckboxValueType[]>();
-    const [checkedListB, setCheckedListB] = useState<CheckboxValueType[]>();
-    // const [indeterminate, setIndeterminate] = useState(true);
-    // const [indeterminateB, setIndeterminateB] = useState(true);
-    const [checkAll, setCheckAll] = useState(false);
-    // const [checkAllB, setCheckAllB] = useState(false);
 
-    
+    let { idrole } = useParams();
+    const [role,setRoles] = useState<any>();
+
+
+    const fetchDataRole = async () => {
+        // setLoading(true)
+        const docRef = doc(db, "roles",`${idrole}`);
+        const docSnap = await getDoc(docRef)
+        setRoles(docSnap.data());
+        // setLoading(false)
+      }
+      useEffect(()=>{
+        if(idrole){
+            fetchDataRole();
+        }
+    },[])
+    useEffect(() => {
+      if(role){
+        // console.log(role);
+        form.setFieldsValue(role);
+      }
+    }, [role]);
     const HandleCreate = async () => {
+        if (idrole) {
+            const data = await form.validateFields();
+            // console.log(data);
+            await updateDoc(doc(db, "roles",`${idrole}`), {
+                namerole: data.namerole,
+                description: data.description,  
+                function:data.function,
+                functionb:data.functionb,
+            })
+              .then(() => {
+                // console.log("Document written:", docRef.id);
+                message.success("Cập nhật thành công!");
+                navigate(`/RoleManagement/Table`);
+              })
+              .catch((error) => {
+                message.error("Cập nhật thất bại!");
+            });
+          }else{
         const data = await form.validateFields();
         // console.log(data);
         await addDoc(collection(db,"roles"), {
-          name: data.namerole,
+          namerole: data.namerole,
           description: data.description,  
-          function:checkedList,
-          functionb:checkedListB
-          })  
-  
-    
+          function:data.function,
+          functionb:data.functionb,
+          })         
+          .then(() => {
+            // console.log("Document written:", docRef.id);
+            message.success("Thêm vai trò thành công!");
+            navigate(`/RoleManagement/Table`);
+
+          })
+          .catch((error) => {
+            message.error("Thêm thất bại!");
+        });
+    }
     }
     const HandleCancel = () => {
-        // navigate(`/ServiceManagement/Table`)
-    
+      navigate(`/RoleManagement/Table`)
     }
-    const onChange = (list: CheckboxValueType[]) => {
-        // console.log(list);
-        setCheckedList(list);
-      };
-      const onChangeB = (listB: CheckboxValueType[]) => {
-        // console.log(listB);
-        setCheckedListB(listB);
-        
-      };
-    // const onCheckAllChange = (e: CheckboxChangeEvent) => {
-    //     setCheckedList(e.target.checked ? plainOptions : []);
-    //     setIndeterminate(false);
-    //     setCheckAll(e.target.checked);
-    //   };
-    //   useEffect(()=>{
-    //     console.log(checkedList);
+    const onChange = (list: CheckboxValueType[] ) => {
 
-    //   },[checkedList])
+      };
+    const onChangeB = (list: CheckboxValueType[]) => {
+    };
 
-      useEffect(()=>{
-        console.log(checkedList);
-        console.log(checkedListB);
-        // console.log(checkedListB);
-      },[checkedList,checkedListB])
+
   return (
     <Form form={form} layout="vertical">
       <Row gutter={[48, 32]}>
@@ -78,12 +104,7 @@ const ModalRole = () => {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item
-            label="Phân quyền chức năng"
-            name="setrole"
-            // rules={[{ required: true, message: "Vui lòng chọn chức năng!" }]}
-          >
-            <Form.Item label="Nhóm chức năng A" name="Role_group_A">
+            <Form.Item label="Nhóm chức năng A" name="function">
               {/* <Checkbox
                 indeterminate={indeterminate}
                 onChange={onCheckAllChange}
@@ -92,19 +113,12 @@ const ModalRole = () => {
                 Check all
               </Checkbox> */}
               {/* <Divider /> */}
-              <CheckboxGroup
-                options={plainOptions}
-                onChange={onChange}
-              />
+              <Checkbox.Group options={plainOptions} defaultValue={['']} onChange={onChange} />
             </Form.Item>
-            
-            <Form.Item label="Nhóm chức năng B" name="role_group_B">
-              <CheckboxGroup      
-                options={plainOptionsB}
-                onChange={onChangeB}
-              />
+            <Form.Item label="Nhóm chức năng B" name="functionb" >
+            <Checkbox.Group options={plainOptionsB} defaultValue={['']} onChange={onChangeB} />
+
             </Form.Item>
-          </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item
@@ -120,7 +134,8 @@ const ModalRole = () => {
       </Row>
       <Row gutter={[48, 32]}>
         <CancelButton onClick={HandleCancel}>Huỷ bỏ</CancelButton>
-        <SubmitButton onClick={HandleCreate}>Thêm Dịch vụ</SubmitButton>
+        <SubmitButton onClick={HandleCreate}>{idrole?"Cập nhật":"Thêm thiết bị"}</SubmitButton>
+
       </Row>
     </Form>
   );

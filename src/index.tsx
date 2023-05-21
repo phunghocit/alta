@@ -29,13 +29,14 @@ import ModalFormDevice from './components/DeviceDashboard/ModalFormDevice';
 import DetailDevice from './components/DeviceDashboard/DetailDevice';
 import ModalFormService from './components/ServiceForm/ModalFormService';
 import TableService from './components/ServiceForm/TableService';
-import UpdateService from './components/ServiceForm/UpdateService';
 import DetailService from './components/ServiceForm/DetailService';
 import ModalRole from './components/RoleDashboard/ModalRole';
 import TableRole from './components/RoleDashboard/TableRole';
-import UpdateRole from './components/RoleDashboard/UpdateRole';
 import Forgetpassword from './components/Forgetpassword';
 import ResetPassword from './components/ResetPassword';
+import ModalForm from './components/NumberLevelForm/ModalForm';
+import Table from './components/NumberLevelForm/TableForm';
+import TableForm from './components/NumberLevelForm/TableForm';
 // import ResetPasswords from './pages/ResetPasswords';
 
 
@@ -70,7 +71,23 @@ const router = createBrowserRouter([
   // },
   {
     path: "/NumberLevel",
-    element: <PrivateRoute page={<NumberLevel/>}/>
+    element: <PrivateRoute page={<NumberLevel/>}/>,
+    children: [
+      {
+        path: "AddNumberLevel",
+        element: <PrivateRoute page={<ModalForm/>}/>,
+      },
+      {
+        path: "Table",
+        element: <PrivateRoute page={<TableForm/>}/>,
+      },
+      // {
+      //   path: "Detail/:idnumber",
+      //   element: <PrivateRoute page={<TableForm/>}/>,
+      // }
+
+      
+    ]
   },
   {
     path: "/Report",
@@ -140,11 +157,11 @@ const router = createBrowserRouter([
         element: <PrivateRoute page={<TableService/>}/>
       },
       {
-        path: "Update/:iddevices",
-        element: <PrivateRoute page={<UpdateService/>}/>
+        path: "Update/:idservice",
+        element: <PrivateRoute page={<ModalFormService/>}/>
       },
       {
-        path: "Detail/:iddevices",
+        path: "Detail/:idservice",
         element: <PrivateRoute page={<DetailService/>}/>
       }
     ]
