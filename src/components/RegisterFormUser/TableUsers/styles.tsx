@@ -3,36 +3,9 @@ import { Table, Button } from "antd";
 import Search from "antd/es/input/Search";
 
 
-export const Headbar = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`
 
-export const SearchBox = styled(Search)`
-  width: 40%;
-  border: 1px solid transparent;
-  font-size: 1rem;
-  
-  
-  input{
-    background-color: rgba(17, 25, 40, 0.73);
-    color: pink;
-    border: 1px solid transparent;
-    font-weight: bold;
-  }
 
-  button{
-    backdrop-filter: blur(25px) saturate(200%);
-    -webkit-backdrop-filter: blur(25px) saturate(200%);
-    background-color: rgba(17, 25, 40, 1);
-    border: 1px solid transparent;
-    
-    svg{
-      color: pink;
-    }
-  }
-`
+
 export const ButtonAction = styled(Button)`
     margin-right: 10px;
     font-weight: bold;
@@ -105,23 +78,6 @@ export const TableCustom = styled(Table)`
   } */
 `;
 
-// export const Avatar = styled.img`
-//   width: 3.5rem;
-//   border-radius: 50%;
-// `;
-
-// export const ButtonAction = styled(Button)`
-//     margin-right: 10px;
-//     font-weight: bold;
-//     border: 2px solid ${props => props.act === "edit"?"#0074D9":"#FF4136"} !important;
-//     background-color: ${props => props.act === "edit"?"#0074D9":"#FF4136"};
-//     color: pink;
-
-//     :hover{
-//       background-color: white;
-//       color: ${props => props.act === "edit"?"#0074D9":"#FF4136"} !important;
-//     }
-// `;
 
 export const ButtonCreate = styled(Button)`
   background-color: #3D9970;

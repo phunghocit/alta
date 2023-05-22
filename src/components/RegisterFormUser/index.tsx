@@ -1,16 +1,9 @@
 import { Form, Input, message } from "antd";
 import {
-  ButtonShowPassword,
   CancelButton,
-  Container,
-  FormContainer,
-  InputBox,
-  InputField,
-  Register,
   SubmitButton,
-  Title,
 } from "./styles";
-import { addDoc, collection, setDoc, doc, getDocs, getDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { Button, Select, Row, Col } from "antd";
 import { useEffect, useState } from "react";

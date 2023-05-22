@@ -1,4 +1,4 @@
-import { CloseCircleOutlined,CheckCircleOutlined,UserOutlined,ExclamationCircleFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Button, Table, Modal, Row, Col } from "antd";
 import { TableCustom,ButtonCreate, ButtonAction } from './styles';
 import { useLocation, useNavigate } from 'react-router-dom';
