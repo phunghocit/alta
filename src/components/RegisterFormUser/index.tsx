@@ -40,7 +40,7 @@ const RegisterFormUser = () => {
               label: doc.data().namerole,
             }
         );
-        console.log(doc.id, " => ", doc.data().name);
+        // console.log(doc.id, " => ", doc.data().name);
 
     });
       setOptions(newRole)
@@ -52,7 +52,7 @@ const RegisterFormUser = () => {
     const docSnap = await getDoc(docRef);
     setUsers(docSnap.data())
     // setLoading(false)
-    console.log(users);
+    // console.log(users);
 
   };
   useEffect(()=>{

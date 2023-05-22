@@ -83,7 +83,8 @@ useEffect(() => {
       description: data.description,
         status: data.status,
         rule: data.rule
-      })  .then((docRef) => {console.log("Document written:", docRef.id)
+      })  .then((docRef) => {
+      // console.log("Document written:", docRef.id)
       message.success('Thêm thành công!')
       navigate(`/ServiceManagement/Table`)
 

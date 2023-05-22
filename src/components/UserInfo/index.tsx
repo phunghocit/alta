@@ -33,7 +33,7 @@ const UserInfo = () => {
   const [form] = Form.useForm();
   // const { userid } = useParams();
   const [userInfo, setUserInfo] = useState<UserInfo | any>();
-  console.log(localStorage.getItem('token'))
+  // console.log(localStorage.getItem('token'))
   const fetchData = async () => {
     // setLoading(true)
     const docRef = doc(db, "users",`${localStorage.getItem('token')}`);
@@ -57,9 +57,9 @@ const uploadFile = () => {
   listAll(imagesListRef2).then((response) => {
     response.items.forEach((item) => {
       deleteObject(item).then(() => { // Delete the file
-        console.log('Đã xoá ảnh cũ');
+        // console.log('Đã xoá ảnh cũ');
       }).catch((error) => {
-        console.log('Chưa xoá ảnh cũ');
+        // console.log('Chưa xoá ảnh cũ');
       });
     });
   });

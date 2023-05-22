@@ -27,10 +27,10 @@ const TableUsers =  () => {
             
             newUsers.push({...doc.data(), iduser: doc.id}); //lấy hết data vào trong mảng tạm newUsers
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
           });
           setUsers(newUsers);
-          console.log(newUsers);
+        //   console.log(newUsers);
           
     }
         
@@ -39,9 +39,9 @@ const TableUsers =  () => {
     },[])
 
 
-    useEffect(()=>{
-        console.log(users);
-    },[users])
+    // useEffect(()=>{
+    //     // console.log(users);
+    // },[users])
 
     const onDelete = (id:any) => {
     
@@ -154,7 +154,7 @@ const TableUsers =  () => {
                     searchParams.set("limit",pagination.pageSize);
 
                     navigate(`${location.pathname}?${searchParams.toString()}`);
-                    console.log(location)
+                    // console.log(location)
             }}/> 
             </Col>
             <Col flex="none">

@@ -23,8 +23,8 @@ const TableForm = () => {
             
       newnumber.push({...doc.data(), idnumber: doc.id}); //lấy hết data vào trong mảng tạm newUsers
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      console.log(newnumber);
+      // console.log(doc.id, " => ", doc.data());
+      // console.log(newnumber);
       setNumber(newnumber);
       
     });
@@ -36,7 +36,7 @@ const TableForm = () => {
   }, []);
 
   useEffect(() => {
-    console.log(number);
+    // console.log(number);
   }, [number]);
 
   const onDetail = (idnumber: any) => {
@@ -118,7 +118,7 @@ const TableForm = () => {
             searchParams.set("limit",pagination.pageSize);
 
             navigate(`${location.pathname}?${searchParams.toString()}`);
-            console.log(location)
+            // console.log(location)
     }}/> 
     </Col>
     <Col flex="none">

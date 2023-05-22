@@ -24,7 +24,7 @@ const ModalFormDevice = () => {
   const [form] = Form.useForm();
   let { iddevices } = useParams();
   const [device,setDevice] = useState<any>();
-  console.log(iddevices);
+  // console.log(iddevices);
 
   const fetchDataDevice = async () => {
     // setLoading(true)
@@ -32,7 +32,7 @@ const ModalFormDevice = () => {
     const docSnap = await getDoc(docRef);
     setDevice(docSnap.data())
     // setLoading(false)
-    console.log(device);
+    // console.log(device);
 
   };
 
@@ -50,7 +50,7 @@ const ModalFormDevice = () => {
               label: doc.data().name,
             }
         );
-        console.log(doc.id, " => ", doc.data().name);
+        // console.log(doc.id, " => ", doc.data().name);
 
     });
       setOptions(newServices)

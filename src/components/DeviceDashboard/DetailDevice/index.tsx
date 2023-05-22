@@ -23,7 +23,7 @@ const DetailDevice = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
   // useTimeout(device, 5000)
-  console.log(iddevices);
+  // console.log(iddevices);
   
   const fetchDataServices = async () => {
     // setLoading(true)
@@ -33,7 +33,7 @@ const DetailDevice = () => {
     // setLoading(false)
 
   };
-  console.log(device);
+  // console.log(device);
 
   useEffect(()=>{
     fetchDataServices();

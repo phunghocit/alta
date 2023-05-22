@@ -39,7 +39,7 @@ const TableDevices = () => {
   }, []);
 
   useEffect(() => {
-    console.log(devices);
+    // console.log(devices);
   }, [setDevices]);
   const onEdit = (iddevices: any) => {
     navigate(`/DevicePage/Update/${iddevices}`);
@@ -137,7 +137,7 @@ const TableDevices = () => {
             searchParams.set("limit", pagination.pageSize);
 
             navigate(`${location.pathname}?${searchParams.toString()}`);
-            console.log(location);
+            // console.log(location);
           }}
         />
       </Col>

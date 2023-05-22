@@ -52,8 +52,8 @@ const TableRole = () => {
       });             
       newRoles.push({...doc.data(), idRole: doc.id,memberrole:count}); //lấy hết data vào trong mảng tạm newUsers
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      console.log(newRoles);
+      // console.log(doc.id, " => ", doc.data());
+      // console.log(newRoles);
       setRoles(newRoles);
       
     });
@@ -65,7 +65,7 @@ const TableRole = () => {
   }, []);
 
   useEffect(() => {
-    console.log(roles);
+    // console.log(roles);
   }, [setRoles]);
 
   const AddRole = () => {
@@ -131,7 +131,7 @@ const TableRole = () => {
             searchParams.set("limit",pagination.pageSize);
 
             navigate(`${location.pathname}?${searchParams.toString()}`);
-            console.log(location)
+            // console.log(location)
     }}/> 
     </Col>
     <Col flex="none">

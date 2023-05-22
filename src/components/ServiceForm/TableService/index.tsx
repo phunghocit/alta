@@ -29,7 +29,7 @@ const TableService = () => {
         docSnap.forEach((doc) => { //lấy từng doc trong firebase
             newServices.push({...doc.data(), idservice: doc.id}); //lấy hết data vào trong mảng tạm newUsers
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
           });
           setServices(newServices);
     }
@@ -40,7 +40,7 @@ const TableService = () => {
 
 
     useEffect(()=>{
-        console.log(services);
+        // console.log(services);
     },[setServices])
     const onEdit = (idservice:any) => {
         navigate(`/ServiceManagement/Update/${idservice}`);
@@ -145,7 +145,7 @@ const TableService = () => {
               searchParams.set("limit", pagination.pageSize);
 
               navigate(`${location.pathname}?${searchParams.toString()}`);
-              console.log(location);
+            //   console.log(location);
             }}
           />
         </Col>

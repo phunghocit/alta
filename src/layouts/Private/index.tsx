@@ -21,7 +21,7 @@ const PrivateLayout = ({ children, title }:Props) => {
 
   const toggleMenu = async (e:any) => {
     const pathName = await location.pathname.substring(1);
-    console.log(e.target.name + " " + pathName);
+    // console.log(e.target.name + " " + pathName);
   }
   const imgage=   <img src={LogoAlta} className="logo Alta" alt="Alta logo" width='120px'/>
 

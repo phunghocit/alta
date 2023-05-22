@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   let { iduser } = useParams();
-  console.log(iduser);
+  // console.log(iduser);
 
     const HandleSubmit = async () => {
       const data = await form.validateFields();
