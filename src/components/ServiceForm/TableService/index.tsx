@@ -1,6 +1,6 @@
 import { Button, Col, Form, Row } from 'antd';
 import { CloseCircleOutlined,CheckCircleOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ButtonAction, ButtonCreate, Headbar, TableCustom } from './styles';
 import { collection, getDocs } from '@firebase/firestore';
@@ -11,6 +11,7 @@ const TableService = () => {
     const navigate = useNavigate();
     const [services, setServices] = useState([]);
     const location = useLocation();
+    const [keyword, setKeyword] = useState("");
 
     
     const AddService = () => {
@@ -124,12 +125,23 @@ const TableService = () => {
                 }
             },
         ]
-        
+        const searcheDataSource = useMemo(() => {
+            //update 1 dữ liệu
+            if (keyword) {
+              return services.filter((item:any) => {
+                return item.name.includes(keyword) || item.status.includes(keyword);
+              });
+            }
+            return services;
+          }, [keyword, services]);
+          const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+            setKeyword(e.target.value);
+          };
   return (
     <div>
         <Row>
       <Headbar>
-        <SearchBox />
+        {/* <SearchBox value={keyword} onChange={onSearch}/> */}
       </Headbar>
       </Row>
       <Row wrap={false}>
