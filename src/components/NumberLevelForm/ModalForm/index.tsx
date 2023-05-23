@@ -1,5 +1,5 @@
 import { addDoc, collection, doc, getCountFromServer, getDoc, getDocs } from '@firebase/firestore';
-import { Form, Select, message } from 'antd'
+import { Form, Select, message,Modal  } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { db } from '../../../firebase/firebase';
 import { CancelButton, SubmitButton } from './styles';
@@ -19,7 +19,8 @@ const ModalForm = () => {
   const [loading, setLoading] = useState(false)
   const [userInfo, setUserInfo] = useState<UserInfo | any>();
   const navigate = useNavigate();
-
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [modalText, setModalText] = useState('Content of the modal');
   const fetchDataServices = async () => {
     setLoading(true)
     const docRef = collection(db, "services"); //tra ve collection 
@@ -71,12 +72,32 @@ const HandleCreate =async () => {
       // console.log("Document written:", docRef.id);
       // message.success("In số thành công!");
       // navigate(`/RoleManagement/Table`);
-      alert(`Số thứ tự được cấp: ${snapshot.data().count+1}\n DV: ${data.services_used} \n Thời gian cấp: ${today.getHours()}:${today.getMinutes()} ${today.getDate()}/${today.getMonth()}/${today.getFullYear()} \nHạn sử dụng: 17:30 ${today.getDate()}/${today.getMonth()}/${today.getFullYear()}`);
+
+
+      // setIsModalOpen(true);
+      // setModalText(`Số thứ tự được cấp: ${snapshot.data().count+1}\n DV: ${data.services_used} \n Thời gian cấp: ${today.getHours()}:${today.getMinutes()} ${today.getDate()}/${today.getMonth()}/${today.getFullYear()} \nHạn sử dụng: 17:30 ${today.getDate()}/${today.getMonth()}/${today.getFullYear()}`);
+      // alert(`Số thứ tự được cấp: ${snapshot.data().count+1}\n DV: ${data.services_used} \n Thời gian cấp: ${today.getHours()}:${today.getMinutes()} ${today.getDate()}/${today.getMonth()}/${today.getFullYear()} \nHạn sử dụng: 17:30 ${today.getDate()}/${today.getMonth()}/${today.getFullYear()}`);
+      Modal.info({
+        title: 'Số thứ tự được cấp',
+        content: (
+          <div>
+            <p>Số thứ tự được cấp: {snapshot.data().count+1}</p>
+            <p>DV: {data.services_used}</p>
+
+            <p>Thời gian cấp: {today.getHours()}:{today.getMinutes()} {today.getDate()}/{today.getMonth()}/{today.getFullYear()}</p>
+            <p>Hạn sử dụng: 17:30 {today.getDate()}/{today.getMonth()}/{today.getFullYear()}</p>
+          </div>
+        ),
+        onOk() {},
+      });
     })
     .catch((error) => {
       message.error("In thất bại!");
   });
 }
+// const ModalCancel = () => {
+//   setIsModalOpen(false);
+// };
   return (
     <Form form={form} layout="vertical">
       <Form.Item
@@ -112,6 +133,10 @@ const HandleCreate =async () => {
       </Form.Item>
       <CancelButton onClick={HandleCancel}>Huỷ bỏ</CancelButton>
       <SubmitButton onClick={HandleCreate}>In số</SubmitButton>
+      {/* <Modal title="Basic Modal" open={isModalOpen} onCancel={ModalCancel}>
+        <p>{modalText}</p>
+
+      </Modal> */}
     </Form>
   );
 }
