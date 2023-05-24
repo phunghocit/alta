@@ -5,6 +5,7 @@ import { db } from "../../../firebase/firebase";
 import { deleteObject, getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../firebase/firebase-config";
 import { v4 } from "uuid";
+import { Img } from "./styles";
 
 const DEFAULT_USER = {
   fullname: "",
@@ -102,8 +103,11 @@ useEffect(() => {
       <button onClick={uploadFile}> Upload Image</button>
       {/* <button onClick={deleteFile}> xoá</button> */}
       {imageUrls.map((url) => {
-        return <img src={url} width='160px'/>;
+        return <Img src={url} width='160px'/>;
+
       })}
+      {userInfo && <h2>{userInfo.fullname}</h2>}
+
         </Col>
         <Col span={8} >
 
