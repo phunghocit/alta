@@ -1,5 +1,5 @@
 // import TableUsers from "../../components/RegisterFormUser/TableUsers";
-import UserInfo from "../../components/UserInfo";
+import UserInfo from "../../components/LoginFormUser/UserInfo";
 import Layout from "../../layouts/Private"
 
 

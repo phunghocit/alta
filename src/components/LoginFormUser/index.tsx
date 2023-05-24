@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import  firebase  from '@firebase/app'
 import { collection, doc, getDocs, getFirestore } from 'firebase/firestore'
 import { Form, Input, message } from 'antd'
-import {LoginBanner, ButtonLogin, FormLogin, LabelCustom, LoginWrapper, ImgLogo, ImgBanner, LoginForm, Title, InputCustom } from './styles'
+import {LoginBanner, ButtonLogin, FormLogin, LabelCustom, LoginWrapper, ImgLogo, ImgBanner, LoginForm, InputCustom, Title1, Title2 } from './styles'
 const defaultFormFields = {
   username: '',
   password: '',
@@ -68,8 +68,8 @@ const LoginFormUser = () => {
 
       <LoginBanner>
           <ImgBanner src={Banner} className="logo Banner" alt="Banner logo" />
-        {/* <Title>Hệ thống</Title>
-        <Title>QUẢN LÝ XẾP HÀNG</Title> */}
+        <Title1>Hệ thống</Title1>
+        <Title2>QUẢN LÝ XẾP HÀNG</Title2>
       </LoginBanner>
     </LoginWrapper>
 

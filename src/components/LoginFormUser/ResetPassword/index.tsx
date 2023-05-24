@@ -4,8 +4,10 @@ import { CancelButton, SubmitButton } from './styles'
 import { collection, doc, getDocs, updateDoc } from '@firebase/firestore'
 import form from 'antd/es/form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { db } from '../../firebase/firebase'
-
+import { db } from '../../../firebase/firebase'
+import LogoAlta from '../../../shared/images/LogoAlta.png'
+import Banner from '../../../shared/images/Frame.png'
+import { FormLogin, ImgBanner, ImgLogo, LoginBanner, LoginForm, LoginWrapper, Title } from '../styles'
 const ResetPassword = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -34,7 +36,13 @@ const ResetPassword = () => {
     }
 
   return (
-    <Form form={form} layout="vertical">
+
+            <LoginWrapper>
+            <LoginForm>
+              <ImgLogo src={LogoAlta} className="logo Alta" alt="Alta logo" />
+              <FormLogin form={form} layout="vertical">
+              <Title>Đặt lại mật khẩu mới</Title>
+
           <Form.Item
             name="password"
             label="Mật khẩu"
@@ -65,8 +73,14 @@ const ResetPassword = () => {
           >
             <Input.Password />
           </Form.Item>
-      <SubmitButton onClick={HandleSubmit}>Tiếp tục</SubmitButton>
-    </Form>
+      <SubmitButton onClick={HandleSubmit}>Xác nhận</SubmitButton>
+    </FormLogin>
+            </LoginForm>
+      
+            <LoginBanner>
+                <ImgBanner src={Banner} className="logo Banner" alt="Banner logo" />
+            </LoginBanner>
+          </LoginWrapper>
   );
 }
 

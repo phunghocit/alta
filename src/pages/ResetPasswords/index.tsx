@@ -1,5 +1,5 @@
 
-import ResetPassword from "../../components/ResetPassword";
+import ResetPassword from "../../components/LoginFormUser/ResetPassword";
 import Layout from "../../layouts/Private"
 
 

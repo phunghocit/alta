@@ -1,9 +1,9 @@
 import {  doc, getDoc } from "@firebase/firestore";
 import { Col, Form, Input, Row, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { db } from "../../firebase/firebase";
+import { db } from "../../../firebase/firebase";
 import { deleteObject, getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../firebase/firebase-config";
+import { storage } from "../../../firebase/firebase-config";
 import { v4 } from "uuid";
 
 const DEFAULT_USER = {

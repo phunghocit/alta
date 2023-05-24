@@ -28,19 +28,11 @@ display: flex;
   align-items: center;
 `;
 export const ImgLogo = styled.img`
-position: absolute;
-top: 10%;
+
 `
 export const ImgBanner = styled.img`
   width: 60%;
 `
-export const Title = styled.p`
-  font-size: 1.5rem;
-  margin: 0;
-  @media screen and (max-width:600px){
-    font-size: 1rem;
-  }
-`;
 export const Title1 = styled.p`
 position: absolute;
   font-size: 1.5rem;
@@ -61,7 +53,7 @@ text-align: center;
 
 color: #FF7506;
   @media screen and (max-width:600px){
-    font-size: 1rem;
+    font-size: 4rem;
   }
 `;
 export const Title2 = styled.p`
@@ -84,7 +76,7 @@ text-align: center;
 
 color: #FF7506;
   @media screen and (max-width:600px){
-    font-size: 1rem;
+    font-size: 4rem;
   }
 `;
 
@@ -131,4 +123,36 @@ export const ButtonLogin = styled(Button)`
   }
 `;
 
+export const SubmitButton = styled(Button)`
+    font-size: 1rem;
+    font-weight: bold;
+    height: auto;
+    width: auto;
+    padding: 0.25rem 1.25rem;
+
+    background:#4096ff;
+    color: white;
+    border: 2px solid #4096ff;
+
+    :hover{
+        color:#4096ff;
+        background: white;
+    }
+`
+export const CancelButton = styled(Button)`
+    font-size: 1rem;
+    font-weight: bold;
+    height: auto;
+    width: auto;
+    padding: 0.25rem 1.25rem;
+
+    background:#4096ff;
+    color: white;
+    border: 2px solid #4096ff;
+
+    :hover{
+        color:#4096ff;
+        background: white;
+    }
+`
 

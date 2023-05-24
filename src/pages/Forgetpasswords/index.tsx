@@ -1,5 +1,5 @@
 import DeviceDashboard from "../../components/DeviceDashboard";
-import Forgetpassword from "../../components/Forgetpassword";
+import Forgetpassword from "../../components/LoginFormUser/Forgetpassword";
 import Layout from "../../layouts/Private"
 
 
